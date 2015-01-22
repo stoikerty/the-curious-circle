@@ -30,7 +30,7 @@
 
 // Variables
 // --
-$grid-size : 18px;
+$grid-size : 17px;
 $world-size : $grid-size * 15;
 
 
@@ -166,7 +166,7 @@ $world-size : $grid-size * 15;
         float : left;
         padding : 6px 2px 0px;
 
-        $button-height : 2.4em;
+        $button-height : $grid-size * 2;
 
         .button{
             z-index : 1;
@@ -218,6 +218,12 @@ $world-size : $grid-size * 15;
             &.blue-light{
                 &:after{
                     background-color : $blue-light;
+                }
+            }
+
+            &.orange-dark{
+                &:after{
+                    background-color : $orange-dark;
                 }
             }
 
@@ -308,8 +314,30 @@ $world-size : $grid-size * 15;
                         float : left;
                         @include border-box;
 
+                        @include transition(opacity ease-in-out 0.2s);
+
+                        &:before{
+                            content : attr(data-number);
+                        }
+
                         &.nr0{
                             width : (33.333% * 2);
+                        }
+                    }
+
+                    &.orientation-mode{
+                        .number{
+                            &:before{
+                                content : attr(data-orientation);
+                            }
+
+                            &.nr2, &.nr4, &.nr6, &.nr8{
+                                font-size : 0.6em;
+                            }
+
+                            &.nr1, &.nr3, &.nr5, &.nr7, &.nr9, &.nr0{
+                                @include opacity(0.2);
+                            }
                         }
                     }
                 }
