@@ -30,7 +30,7 @@
 
 // Variables
 // --
-$grid-size : 17px;
+$grid-size : 18px;
 $world-size : $grid-size * 15;
 
 
@@ -38,11 +38,19 @@ $world-size : $grid-size * 15;
 // --
 .content{
     @include position(relative, block, 100%);
+    float : left;
+    text-align : center;
+}
+
+.inner-content{
+    @include position(relative, inline-block);
+    padding : 0 5px;
 }
 
 .world-grid{
-    @include position(relative, block, $world-size, $world-size);
-    margin : ($grid-size / 2) auto;
+    @include position(relative, inline-block, $world-size, $world-size);
+    margin : $grid-size 0 0;
+    vertical-align : top;
 
     background-color : #fff;
     @include box-shadow(
@@ -66,7 +74,7 @@ $world-size : $grid-size * 15;
             @include border-box;
             @include transform(scale(0.6));
             content : ' ';
-            background-color : #555;
+            background-color : #444;
             @include border-radius(50px);
         }
 
@@ -117,178 +125,215 @@ $world-size : $grid-size * 15;
             }
         }
     }
+}
 
-    .command-input{
-        $input-height : 30px;
-        @include position(absolute, block, 96%);
-        left : 2%;
-        top  : 100%;
-        padding-top : ($grid-size / 2);
+.command-input{
+    $input-height : 24px;
+    @include position(relative, inline-block, $world-size - ($grid-size * 2));
+    margin : $grid-size ($grid-size) 0;
+    vertical-align : top;
 
-        .current-input{
-            z-index : 2;
-            @include position(relative, block, 100%, $input-height);
-            float : left;
+    .current-input{
+        z-index : 2;
+        @include position(relative, block, 100%, $input-height);
+        @include border-box;
+        float : left;
+        padding : 0 8px;
 
-            background-color : #fff;
+        background-color : #fff;
+        @include box-shadow(
+            0px 0px 3px rgba(#000, 0.08),
+            0px 0px 30px rgba(#000, 0.05)
+        );
+        border : 1px solid #ccc;
+        @include border-radius(2px);
+
+        line-height : $input-height - 2px;
+        font-size : 0.8em;
+        color : #999;
+
+        &:focus{
             @include box-shadow(
-                0px 0px 3px rgba(#000, 0.08),
-                0px 0px 30px rgba(#000, 0.05)
+                0px 0px 3px rgba(#000, 0.14),
+                0px 0px 30px rgba(#000, 0.08)
             );
-            border : 1px solid #ccc;
+            border : 1px solid #aaa;
+        }
+    }
 
-            $button-height : 2.5em;
+    .touch-keyboard{
+        @include position(relative, block, 100%);
+        float : left;
+        padding : 6px 2px 0px;
 
-            .button{
-                z-index : 1;
-                @include isButton;
-                @include transform(scale(1));
-                @include transition(transform, 0.1s $ease-in-out-quint);
-                color : #fff;
-                line-height : $button-height;
-                text-align  : center;
-                font-weight : bold;
+        $button-height : 2.4em;
 
+        .button{
+            z-index : 1;
+            @include isButton;
+            @include transform(scale(1));
+            @include transition(transform, 0.1s $ease-in-out-quint);
+            color : #fff;
+            line-height : $button-height;
+            text-align  : center;
+            font-weight : bold;
+
+            &:after{
+                z-index : -1;
+                @include position(absolute, block, 100%, 100%);
+                @include border-box;
+                top  : 0;
+                left : 0;
+                content : ' ';
+                background-color : #444;
+                border-left  : 1px solid #ddd;
+                border-right : 1px solid #aaa;
+                border-bottom : 2px solid #999;
+                @include transform(scale(0.92));
+                @include transition(opacity, 0.07s $ease-out-quint);
+                @include border-radius(2px);
+            }
+
+            &:hover{
+                &:after{ @include opacity(0.8); }
+            }
+
+            &:active{
+                @include transform(scaleY(0.93) scaleX(0.96));
+                &:after{ @include opacity(1); }
+            }
+
+            &.green-dark{
                 &:after{
-                    z-index : -1;
-                    @include position(absolute, block, 100%, 100%);
-                    @include border-box;
-                    top  : 0;
-                    left : 0;
-                    content : ' ';
-                    background-color : #444;
-                    border-left  : 1px solid #eee;
-                    border-right : 1px solid #ccc;
-                    border-bottom : 2px solid #aaa;
-                    @include transform(scale(0.9));
-                    @include transition(opacity, 0.1s $ease-in-out-quint);
-                    @include border-radius(2px);
-                }
-
-                &:hover{
-                    &:after{ @include opacity(0.8); }
-                }
-
-                &:active{
-                    @include transform(scaleY(0.93) scaleX(0.96));
-                    &:after{ @include opacity(1); }
-                }
-
-                &.green-dark{
-                    &:after{
-                        background-color : $green-dark;
-                    }
-                }
-
-                &.blue-dark{
-                    &:after{
-                        background-color : $blue-dark;
-                    }
-                }
-
-                &.blue-light{
-                    &:after{
-                        background-color : $blue-light;
-                    }
-                }
-
-                &.is-active{
-                    &:after{
-                        background-color : $red-dark;
-                    }
+                    background-color : $green-dark;
                 }
             }
 
-            .touch-keyboard{
-                @include position(absolute, block, 100%);
-                @include border-box;
-                top   : 100%;
-                right : 0px;
-                margin-top : 0px;
-                padding : 4px 2px;
+            &.blue-dark{
+                &:after{
+                    background-color : $blue-dark;
+                }
+            }
 
-                border : 1px solid #ccc;
-                background-color : #fff;
+            &.blue-light{
+                &:after{
+                    background-color : $blue-light;
+                }
+            }
 
-                .instructions{
-                    @include position(relative, block, 40%);
+            &.is-active{
+                &:after{
+                    background-color : $red-dark;
+                }
+            }
+        }
+
+        .left{
+            @include position(relative, block, 40%);
+            float : left;
+            @include border-box;
+            padding : 3px;
+
+            .instructions{
+                @include position(relative, block, 100%);
+                float : left;
+
+                .forward, .left, .right{
+                    @include position(relative, block, 33.333%);
                     float : left;
                     @include border-box;
-                    padding : 3px;
+                }
 
-                    .forward, .left, .right{
+                .forward{
+                    width : 100%;
+                }
+                .left, .right{
+                    width : 50%;
+                    line-height : $button-height * 1.6;
+                }
+            }
+
+            .history{
+                @include position(relative, block, 100%, $grid-size * 5.5);
+                @include border-box;
+                float : left;
+                padding : 4px 6px 8px;
+                margin-top : 6px;
+
+                background-color : #f4f4f4;
+
+                font-size : 0.8em;
+                color : #888;
+
+                @include border-radius(2px);
+                @include box-shadow(
+                    0px 0px 4px rgba(#fff, 1),
+                    inset 0px 1px 1px rgba(#000, 0.08),
+                    inset 0px 0px 4px rgba(#000, 0.1)
+                );
+            }
+        }
+
+        .right{
+            @include position(relative, block, 60%);
+            float : right;
+            @include border-box;
+            padding : 3px;
+
+            .numpad{
+                .position{
+                    @include position(relative, block, 100%);
+                    float : left;
+                    padding-bottom : 5px;
+
+                    .x, .y, .orientation{
+                        @include position(relative, block, 100%);
+                        float : left;
+                        font-size : 0.7em;
+                    }
+
+                    .x, .y{
+                        width : 50%;
+                    }
+                    .orientation{
+                        width : 100%;
+                        margin-top : 2px;
+                    }
+                }
+                .numbers{
+                    @include position(relative, block, 100%);
+                    float : left;
+                    .number{
                         @include position(relative, block, 33.333%);
                         float : left;
                         @include border-box;
-                    }
 
-                    .forward{
-                        width : 100%;
-                    }
-                    .left, .right{
-                        width : 50%;
-                        line-height : $button-height * 1.6;
-                    }
-                }
-                .numpad{
-                    @include position(relative, block, 60%);
-                    float : right;
-                    @include border-box;
-                    padding : 3px;
-
-                    .position{
-                        @include position(relative, block, 100%);
-                        float : left;
-                        padding-bottom : 5px;
-
-                        .x, .y, .orientation{
-                            @include position(relative, block, 100%);
-                            float : left;
-                            font-size : 0.7em;
-                        }
-
-                        .x, .y{
-                            width : 50%;
-                        }
-                        .orientation{
-                            width : 100%;
-                        }
-                    }
-                    .numbers{
-                        @include position(relative, block, 100%);
-                        float : left;
-                        .number{
-                            @include position(relative, block, 33.333%);
-                            float : left;
-                            @include border-box;
-
-                            &.nr0{
-                                width : (33.333% * 2);
-                            }
+                        &.nr0{
+                            width : (33.333% * 2);
                         }
                     }
                 }
             }
         }
+    }
 
-        .history{
-            z-index : 1;
-            @include position(relative, block, 100%);
+    .history{
+        z-index : 1;
+        @include position(relative, block, 100%);
+        float : left;
+
+        .command{
+            @include position(relative, block, 100%, $input-height);
             float : left;
+            margin-top : 10px;
 
-            .command{
-                @include position(relative, block, 100%, $input-height);
-                float : left;
-                margin-top : 10px;
+            background-color : #fff;
+            border : 1px solid #eee;
+            @include border-radius(2px);
+        }
 
-                background-color : #fff;
-                border : 1px solid #eee;
-                @include border-radius(2px);
-            }
-
-            .command + .command{
-                border : 1px solid #fff;
-            }
+        .command + .command{
+            border : 1px solid #fff;
         }
     }
 }

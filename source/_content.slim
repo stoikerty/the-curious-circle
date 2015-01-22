@@ -1,32 +1,34 @@
 .content
-  .world-grid
-    .grid-cell
-    .robot.is-breathing
-        .pointer.north
+  .inner-content
+    .world-grid
+      .grid-cell
+      .robot.is-breathing
+          .pointer.north
     .command-input
-      .current-input
-        .touch-keyboard
-          .instructions
-            .button.green-dark.forward ^
-            .button.green-dark.left <
-            .button.green-dark.right >
-          .numpad
-            .position
-              .button.blue-dark.x X
-              .button.blue-dark.y Y
-              .button.blue-dark.orientation orientation
-            .numbers
-              .button.blue-light.number.nr1 1
-              .button.blue-light.number.nr2 2
-              .button.blue-light.number.nr3 3
-              .button.blue-light.number.nr4 4
-              .button.blue-light.number.nr5 5
-              .button.blue-light.number.nr6 6
-              .button.blue-light.number.nr7 7
-              .button.blue-light.number.nr8 8
-              .button.blue-light.number.nr9 9
-              .button.blue-light.number.nr0 0
-              .button.blue-light.number.confirm ok
-      .history
-        .command
-        .command
+      input.current-input placeholder="type in your command"
+      .touch-keyboard
+          .left
+            .instructions
+              .button.green-dark.forward ^
+              .button.green-dark.left <
+              .button.green-dark.right >
+            .history
+              | xxxxx
+          .right
+            .numpad
+              .position
+                .button.blue-dark.x X
+                .button.blue-dark.y Y
+                .button.blue-dark.orientation orientation
+              .numbers
+                .button.blue-light.number.nr1 1
+                .button.blue-light.number.nr2 2
+                .button.blue-light.number.nr3 3
+                .button.blue-light.number.nr4 4
+                .button.blue-light.number.nr5 5
+                .button.blue-light.number.nr6 6
+                .button.blue-light.number.nr7 7
+                .button.blue-light.number.nr8 8
+                .button.blue-light.number.nr9 9
+                .button.blue-light.number.nr0 0
+                .button.blue-light.number.confirm ok
