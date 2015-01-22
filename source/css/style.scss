@@ -191,6 +191,12 @@ $world-size : $grid-size * 15;
                         background-color : $blue-light;
                     }
                 }
+
+                &.is-active{
+                    &:after{
+                        background-color : $red-dark;
+                    }
+                }
             }
 
             .touch-keyboard{
