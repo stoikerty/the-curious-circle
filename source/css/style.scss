@@ -42,7 +42,7 @@ $world-size : $grid-size * 15;
 
 .world-grid{
     @include position(relative, block, $world-size, $world-size);
-    margin : ($grid-size * 2) auto;
+    margin : ($grid-size * 1) auto;
 
     background-color : #fff;
     @include box-shadow(
@@ -120,12 +120,13 @@ $world-size : $grid-size * 15;
 
     .command-input{
         $input-height : 30px;
-        @include position(absolute, block, 90%);
-        left : 5%;
+        @include position(absolute, block, 96%);
+        left : 2%;
         top  : 100%;
         padding-top : 20px;
 
         .current-input{
+            z-index : 2;
             @include position(relative, block, 100%, $input-height);
             float : left;
 
@@ -135,12 +136,99 @@ $world-size : $grid-size * 15;
                 0px 0px 30px rgba(#000, 0.05)
             );
             border : 1px solid #ccc;
-            border-left : none;
-            border-right : none;
-            @include border-radius(2px);
+
+            .button{
+                z-index : 1;
+                @include isButton;
+                @include transform(scale(1));
+                @include transition(transform, 0.1s $ease-in-out-quint);
+                color : #fff;
+
+                &:after{
+                    z-index : -1;
+                    @include position(absolute, block, 100%, 100%);
+                    @include border-box;
+                    top  : 0;
+                    left : 0;
+                    content : ' ';
+                    background-color : #444;
+                    border-left  : 1px solid #eee;
+                    border-right : 2px solid #ccc;
+                    border-bottom : 2px solid #aaa;
+                    @include transform(scale(0.9));
+                    //@include border-radius(3px);
+                }
+
+                &:hover{
+                    &:after{ background-color : #666; }
+                }
+
+                &:active{
+                    @include transform(scaleY(0.9) scaleX(0.95));
+                }
+            }
+
+            .touch-keyboard{
+                @include position(absolute, block, 100%);
+                @include border-box;
+                top   : 100%;
+                right : 0px;
+                margin-top : 0px;
+                padding : 4px 2px;
+
+                border : 1px solid #ccc;
+                background-color : #fff;
+
+                .instructions{
+                    @include position(relative, block, 40%);
+                    float : left;
+                    @include border-box;
+                    padding : 3px;
+
+                    .forward, .left, .right{
+                        @include position(relative, block, 33.333%);
+                        float : left;
+                        @include border-box;
+                        line-height : 2.5em;
+                        text-align : center;
+                    }
+
+                    .forward{
+                        width : 100%;
+                    }
+                    .left, .right{
+                        width : 50%;
+                        line-height : 5em;
+                    }
+                }
+                .numpad{
+                    @include position(relative, block, 60%);
+                    float : right;
+                    @include border-box;
+                    padding : 3px;
+
+                    .position{ display : none; }
+                    .numbers{
+                        @include position(relative, block, 100%);
+                        float : left;
+                        .number{
+                            @include position(relative, block, 33.333%);
+                            float : left;
+                            @include border-box;
+                            line-height : 2.5em;
+                            text-align : center;
+
+                            &.nr0{
+                                width : (33.333% * 2);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         .history{
+            z-index : 1;
             @include position(relative, block, 100%);
             float : left;
 
