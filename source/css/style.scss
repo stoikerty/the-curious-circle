@@ -1,6 +1,162 @@
 // some compass and custom helpers for starting out
-@import "_helpers.scss";
-@import "compass/css3/transform";
-@import "compass/css3/filter";
+@import "_global-config.scss";
 
-// Add your css here
+// Animations
+// --
+@include keyframes(robotBreathing) {
+    0% {
+        @include transform(scale(0.6));
+    }
+    50% {
+        @include transform(scale(0.8));
+    }
+    100% {
+        @include transform(scale(0.6));
+    }
+}
+
+@include keyframes(pointerBreathing) {
+    0% {
+        @include transform(scale(0.4));
+    }
+    50% {
+        @include transform(scale(0.6));
+    }
+    100% {
+        @include transform(scale(0.4));
+    }
+}
+
+
+// Variables
+// --
+$grid-size : 17px;
+$world-size : $grid-size * 15;
+
+
+// Styling
+// --
+.content{
+    @include position(relative, block, 100%);
+}
+
+.world-grid{
+    @include position(relative, block, $world-size, $world-size);
+    margin : ($grid-size * 2) auto;
+
+    background-color : #fff;
+    @include box-shadow(
+        0px 0px 3px rgba(#000, 0.08),
+        0px 0px 30px rgba(#000, 0.05)
+    );
+    border : 1px solid #ddd;
+    @include border-radius(2px);
+
+    .robot{
+        z-index : 1;
+        @include isAnimated;
+        @include position(relative, block, $grid-size, $grid-size);
+        @include border-box;
+        top  : $world-size - $grid-size;
+        left : 0;
+
+        &:before{
+            z-index : 1;
+            @include position(absolute, block, 100%, 100%);
+            @include border-box;
+            @include transform(scale(0.6));
+            content : ' ';
+            background-color : #555;
+            @include border-radius(50px);
+        }
+
+        &.is-breathing{
+            &:before{
+                @include animation(
+                    robotBreathing $ease-out-quint 5s infinite
+                );
+            } 
+            .pointer:before{
+                @include animation(
+                    pointerBreathing $ease-in-out-quint 5s infinite
+                );
+            } 
+        }        
+
+        .pointer{
+            z-index : 2;
+            @include position(relative, block, $grid-size / 2, $grid-size / 2);
+            @include border-box;
+            @include transition(transform, 0.5s $ease-in-out-quint);
+            
+            &:before{
+                @include position(absolute, block, 100%, 100%);
+                top  : ($grid-size / 2) * 0.4;
+                left : ($grid-size / 2) * 0.4;
+                @include transform(scale(0.6));
+                content : ' ';
+                background-color : #eee;
+                @include border-radius(50px);
+                border : 1px solid #666;
+            }
+
+            &.north{
+                @include transform(translateY(-$grid-size) translateX(0));
+            }
+
+            &.east{
+                @include transform(translateY(0) translateX($grid-size));
+            }
+
+            &.south{
+                @include transform(translateY($grid-size) translateX(0));
+            }
+
+            &.west{
+                @include transform(translateY(0) translateX(-$grid-size));
+            }
+        }
+    }
+
+    .command-input{
+        $input-height : 30px;
+        @include position(absolute, block, 90%);
+        left : 5%;
+        top  : 100%;
+        padding-top : 20px;
+
+        .current-input{
+            @include position(relative, block, 100%, $input-height);
+            float : left;
+
+            background-color : #fff;
+            @include box-shadow(
+                0px 0px 3px rgba(#000, 0.08),
+                0px 0px 30px rgba(#000, 0.05)
+            );
+            border : 1px solid #ccc;
+            border-left : none;
+            border-right : none;
+            @include border-radius(2px);
+        }
+
+        .history{
+            @include position(relative, block, 100%);
+            float : left;
+
+            .command{
+                @include position(relative, block, 100%, $input-height);
+                float : left;
+                margin-top : 10px;
+
+                background-color : #fff;
+                border : 1px solid #eee;
+                @include border-radius(2px);
+            }
+
+            .command + .command{
+                border : 1px solid #fff;
+            }
+        }
+    }
+}

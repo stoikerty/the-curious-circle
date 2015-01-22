@@ -13,11 +13,11 @@ body {
 	vertical-align : baseline;
 	line-height    : 1;
 	
-  font-family: Verdana;
+    font-family: Verdana;
 
-	background-color : #fff;
+	background-color : #fafafa;
 
-  @include box-sizing(border-box);
+    @include box-sizing(border-box);
 
 	/* simple clearfix to contain all elements */
 	//overflow: hidden;
