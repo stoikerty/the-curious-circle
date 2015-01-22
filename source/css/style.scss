@@ -42,7 +42,7 @@ $world-size : $grid-size * 15;
 
 .world-grid{
     @include position(relative, block, $world-size, $world-size);
-    margin : ($grid-size * 1) auto;
+    margin : ($grid-size / 2) auto;
 
     background-color : #fff;
     @include box-shadow(
@@ -123,7 +123,7 @@ $world-size : $grid-size * 15;
         @include position(absolute, block, 96%);
         left : 2%;
         top  : 100%;
-        padding-top : 20px;
+        padding-top : ($grid-size / 2);
 
         .current-input{
             z-index : 2;
@@ -137,12 +137,17 @@ $world-size : $grid-size * 15;
             );
             border : 1px solid #ccc;
 
+            $button-height : 2.5em;
+
             .button{
                 z-index : 1;
                 @include isButton;
                 @include transform(scale(1));
                 @include transition(transform, 0.1s $ease-in-out-quint);
                 color : #fff;
+                line-height : $button-height;
+                text-align  : center;
+                font-weight : bold;
 
                 &:after{
                     z-index : -1;
@@ -153,18 +158,38 @@ $world-size : $grid-size * 15;
                     content : ' ';
                     background-color : #444;
                     border-left  : 1px solid #eee;
-                    border-right : 2px solid #ccc;
+                    border-right : 1px solid #ccc;
                     border-bottom : 2px solid #aaa;
                     @include transform(scale(0.9));
-                    //@include border-radius(3px);
+                    @include transition(opacity, 0.1s $ease-in-out-quint);
+                    @include border-radius(2px);
                 }
 
                 &:hover{
-                    &:after{ background-color : #666; }
+                    &:after{ @include opacity(0.8); }
                 }
 
                 &:active{
-                    @include transform(scaleY(0.9) scaleX(0.95));
+                    @include transform(scaleY(0.93) scaleX(0.96));
+                    &:after{ @include opacity(1); }
+                }
+
+                &.green-dark{
+                    &:after{
+                        background-color : $green-dark;
+                    }
+                }
+
+                &.blue-dark{
+                    &:after{
+                        background-color : $blue-dark;
+                    }
+                }
+
+                &.blue-light{
+                    &:after{
+                        background-color : $blue-light;
+                    }
                 }
             }
 
@@ -189,8 +214,6 @@ $world-size : $grid-size * 15;
                         @include position(relative, block, 33.333%);
                         float : left;
                         @include border-box;
-                        line-height : 2.5em;
-                        text-align : center;
                     }
 
                     .forward{
@@ -198,7 +221,7 @@ $world-size : $grid-size * 15;
                     }
                     .left, .right{
                         width : 50%;
-                        line-height : 5em;
+                        line-height : $button-height * 1.6;
                     }
                 }
                 .numpad{
@@ -207,7 +230,24 @@ $world-size : $grid-size * 15;
                     @include border-box;
                     padding : 3px;
 
-                    .position{ display : none; }
+                    .position{
+                        @include position(relative, block, 100%);
+                        float : left;
+                        padding-bottom : 5px;
+
+                        .x, .y, .orientation{
+                            @include position(relative, block, 100%);
+                            float : left;
+                            font-size : 0.7em;
+                        }
+
+                        .x, .y{
+                            width : 50%;
+                        }
+                        .orientation{
+                            width : 100%;
+                        }
+                    }
                     .numbers{
                         @include position(relative, block, 100%);
                         float : left;
@@ -215,8 +255,6 @@ $world-size : $grid-size * 15;
                             @include position(relative, block, 33.333%);
                             float : left;
                             @include border-box;
-                            line-height : 2.5em;
-                            text-align : center;
 
                             &.nr0{
                                 width : (33.333% * 2);
