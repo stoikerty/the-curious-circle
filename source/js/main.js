@@ -167,8 +167,9 @@ function translate(element, x, y) {
 // Robot & World Logic
 // ----
 
-function Robot(gridSize, robotElement){
+function Robot(gridSize, worldSize, robotElement){
     this._gridSize = gridSize;
+    this._worldSize = worldSize;
     this._robotElement = robotElement;
     this._pointerElement = robotElement.querySelector('.pointer');
     this._orientation = null;
@@ -185,9 +186,9 @@ function Robot(gridSize, robotElement){
      */
 
     this._moveForward = function(){
-        if (this._orientation == 'north') this._move(0, -1);
-        if (this._orientation == 'east')  this._move(1, 0);
-        if (this._orientation == 'south') this._move(0, 1);
+        if (this._orientation == 'north') this._move(0, +1);
+        if (this._orientation == 'east')  this._move(+1, 0);
+        if (this._orientation == 'south') this._move(0, -1);
         if (this._orientation == 'west')  this._move(-1, 0);
     };
 
@@ -222,13 +223,17 @@ function Robot(gridSize, robotElement){
     this._moveTo = function(x, y){
         this._x = x;
         this._y = y;
-        translate(this._robotElement, (this._x * this._gridSize), (this._y * this._gridSize));
+        translate(this._robotElement, (this._x * this._gridSize), (-this._y * this._gridSize));
         
         var self = this;
         self._robotElement.classList.add('is-moving');
         setTimeout(function(){
             self._robotElement.classList.remove('is-moving');
         }, 200);
+
+        if ((this._x > this._worldSize) || (this._x < 0) || (this._y > this._worldSize) || (this._y < 0)) {
+            console.log('stepped outside', this._x, this._y);
+        }
     };
 
     /**
@@ -254,7 +259,7 @@ function Robot(gridSize, robotElement){
     return this._init();
 }
 
-var robot = new Robot(gridSize, document.querySelector('.robot'));
+var robot = new Robot(gridSize, worldSize, document.querySelector('.robot'));
 
 function World(worldSize, robot){
     this._size = worldSize;
