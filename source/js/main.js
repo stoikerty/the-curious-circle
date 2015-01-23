@@ -62,7 +62,7 @@ for (var i=0; i<numpadButtons.length; i++){
 
 // retrieve size of one grid-cell & the entire world-grid
 var gridSize = document.querySelector('.robot').offsetWidth;
-var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize);
+var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize) - 1;
 
 // handle robot instructions
 var instructions = {};
@@ -233,6 +233,7 @@ function Robot(gridSize, worldSize, robotElement){
 
         if ((this._x > this._worldSize) || (this._x < 0) || (this._y > this._worldSize) || (this._y < 0)) {
             console.log('stepped outside', this._x, this._y);
+            this._init();
         }
     };
 
