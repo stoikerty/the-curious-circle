@@ -21,6 +21,35 @@ document.addEventListener("DOMContentLoaded", function(event) {
             instructions.right();
         });
 
+        document.querySelector('.current-input').addEventListener("keydown", function(e){
+            e.stopPropagation();
+            var inputText = e.target.value;
+
+            console.log(e.target.value, e.keyCode);
+
+            if (e.keyCode == 13) {
+                for (var i = 0; i < inputText.length; i++) {
+                    e.target.value = '';
+                    console.log(inputText[i]);
+                    var commands = [];
+                    var currentLetter = inputText[i].toUpperCase();
+
+                    if (currentLetter === 'F') instructions.forward();
+                    if (currentLetter === 'L') instructions.left();
+                    if (currentLetter === 'R') instructions.right();
+
+                    if (currentLetter === 'N') robot.orientation('north');
+                    if (currentLetter === 'E') robot.orientation('east');
+                    if (currentLetter === 'W') robot.orientation('west');
+                    if (currentLetter === 'S') robot.orientation('south');
+
+                    if (parseInt(currentLetter, 10)) {
+                        console.log(currentLetter);
+                    }
+                }
+            }
+        });
+
         var numpadEl = document.querySelector('.numpad');
 
         var numpadButton = {};

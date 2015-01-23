@@ -207,14 +207,14 @@ $world-size : $grid-size * 14;
     margin : $grid-size ($grid-size) 0;
     vertical-align : top;
 
-    $input-height : 24px;
+    $input-height : 26px;
 
     .current-input{
         z-index : 2;
         @include position(relative, block, 100%, $input-height);
         @include border-box;
         float : left;
-        padding : 0 8px;
+        padding : 1px 8px 1px;
 
         background-color : #fff;
         @include box-shadow(
@@ -224,8 +224,9 @@ $world-size : $grid-size * 14;
         border : 1px solid #ccc;
         @include border-radius(2px);
 
-        line-height : $input-height - 2px;
-        font-size : 0.8em;
+        line-height : $input-height;
+        letter-spacing : 0.06em;
+        font-size : 1em;
         color : #999;
 
         &:focus{
@@ -337,7 +338,7 @@ $world-size : $grid-size * 14;
             }
 
             .history{
-                @include position(relative, block, 100%, $grid-size * 5.5);
+                @include position(relative, block, 100%, $grid-size * 6);
                 @include border-box;
                 float : left;
                 padding : 4px 6px 8px;
@@ -345,6 +346,7 @@ $world-size : $grid-size * 14;
 
                 background-color : #f4f4f4;
 
+                text-align : left;
                 font-size : 0.8em;
                 color : #888;
 
