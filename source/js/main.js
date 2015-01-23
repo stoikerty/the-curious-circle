@@ -69,10 +69,13 @@ var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / g
 // handle robot instructions
 var instructions = {};
 instructions.forward = function(){
+    robot.moveForward();
 }
 instructions.left = function(){
+    robot.turnLeft();
 }
 instructions.right = function(){
+    robot.turnRight();
 }
 
 // handle positioning for X, Y and orientation
@@ -143,9 +146,7 @@ numpadInput.enterValue = function(numberValue, orientationValue, confirm){
         if (!confirm && !position.orientation){
             console.log('Number Value : ' + numberValue);
         } else if (!confirm && position.orientation && (orientationValue.length > 3)){
-            console.log('Orientation Value : ' + orientationValue);
-            pointer.classList.remove('north', 'east', 'south', 'west');
-            pointer.classList.add(orientationValue);
+            robot.orientation(orientationValue);
         } else if (confirm && !position.orientation){
             console.log('confirm : ' + confirm);
         }
@@ -156,8 +157,77 @@ numpadInput.enterValue = function(numberValue, orientationValue, confirm){
 // Robot & World Logic
 // ----
 
-function Robot(){
-    this._privateVariable = null;
+function Robot(gridSize, pointerElement){
+    this._gridSize = gridSize;
+    this._pointerElement = pointerElement;
+    this._orientation = '';
+
+    this._init = function(){
+        this._turn('north');
+    };
+
+    /**
+     * Private Methods
+     */
+
+    this._moveForward = function(){
+    };
+
+    this._turn = function(toOrientation){
+        var nextOrientation = '';
+        this._pointerElement.classList.remove('north', 'east', 'south', 'west');
+
+        if (toOrientation == 'left') {
+            if (this._orientation == 'north') nextOrientation = 'west';
+            if (this._orientation == 'east')  nextOrientation = 'north';
+            if (this._orientation == 'south') nextOrientation = 'east';
+            if (this._orientation == 'west')  nextOrientation = 'south';
+        }
+        if (toOrientation == 'right') {
+            if (this._orientation == 'north') nextOrientation = 'east';
+            if (this._orientation == 'east')  nextOrientation = 'south';
+            if (this._orientation == 'south') nextOrientation = 'west';
+            if (this._orientation == 'west')  nextOrientation = 'north';
+        }
+        if (['north', 'east', 'south', 'west'].indexOf(toOrientation) > -1) {
+            nextOrientation = toOrientation;
+        }
+
+        this._orientation = nextOrientation;
+        this._pointerElement.classList.add(this._orientation);
+    };
+
+    this._moveTo = function(){
+    };
+
+    /**
+     * Public Methods
+     */
+
+    this.moveForward = function(){
+        this._moveForward();
+    }
+
+    this.turnLeft = function(){
+        this._turn('left');
+    }
+
+    this.turnRight = function(){
+        this._turn('right');
+    }
+
+    this.orientation = function(toOrientation){
+        this._turn(toOrientation);
+    }
+
+    return this._init();
+}
+
+var robot = new Robot(gridSize, pointer);
+
+function World(worldSize, robot){
+    this._size = worldSize;
+    this._robot = robot;
 
     this._init = function(){
     };
@@ -179,29 +249,4 @@ function Robot(){
     return this._init();
 }
 
-var robot = new Robot();
-
-function World(){
-    this._privateVariable = null;
-
-    this._init = function(){
-    };
-
-    /**
-     * Private Methods
-     */
-
-    this._privateMethod = function(){
-    };
-
-    /**
-     * Public Methods
-     */
-
-    this.publicMethod = function(){
-    }
-
-    return this._init();
-}
-
-var world = new World();
+var world = new World(worldSize, robot);

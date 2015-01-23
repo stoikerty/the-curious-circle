@@ -95,7 +95,7 @@ $world-size : $grid-size * 14;
             z-index : 2;
             @include position(relative, block, $grid-size / 2, $grid-size / 2);
             @include border-box;
-            @include transition(transform, 0.5s $ease-in-out-quint);
+            @include transition(transform, 0.26s $ease-in-out-quint);
             
             &:before{
                 @include position(absolute, block, 100%, 100%);
