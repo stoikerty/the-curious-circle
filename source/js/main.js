@@ -2,7 +2,10 @@
 // add requestanimationframe
 // make direction buttons work
 
-// ---
+
+// ----
+// Element-related Events, functions & style-switching
+// ----
 
 // bind events, save elements for later use
 document.querySelector('.instructions .forward').addEventListener("click", function(e){
@@ -21,9 +24,9 @@ document.querySelector('.instructions .right').addEventListener("click", functio
     instructions.right();
 });
 
-numpadEl = document.querySelector('.numpad');
+var numpadEl = document.querySelector('.numpad');
 
-numpadButton = {};
+var numpadButton = {};
 numpadButton.x = numpadEl.querySelector('.position .x');
 numpadButton.y = numpadEl.querySelector('.position .y');
 numpadButton.orientation = numpadEl.querySelector('.position .orientation');
@@ -49,7 +52,7 @@ for (var i=0; i<numpadButtons.length; i++){
         e.stopPropagation();
         var confirm = e.target.classList.contains('confirm');
 
-        numbers.enterValue(
+        numpadInput.enterValue(
             e.target.getAttribute('data-number'),
             e.target.getAttribute('data-orientation'),
             confirm
@@ -57,14 +60,14 @@ for (var i=0; i<numpadButtons.length; i++){
     });
 }
 
-pointer = document.querySelector('.robot .pointer');
+var pointer = document.querySelector('.robot .pointer');
 
 // retrieve size of one grid-cell & the entire world-grid
-gridSize = document.querySelector('.robot').offsetWidth;
-worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize);
+var gridSize = document.querySelector('.robot').offsetWidth;
+var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize);
 
 // handle robot instructions
-instructions = {};
+var instructions = {};
 instructions.forward = function(){
 }
 instructions.left = function(){
@@ -73,7 +76,7 @@ instructions.right = function(){
 }
 
 // handle positioning for X, Y and orientation
-position = {};
+var position = {};
 position.x = false;
 position.y = false;
 position.orientation = false;
@@ -133,20 +136,72 @@ numpad.showType = function(){
     }
 }
 
-// handle number input
-numbers = {};
-numbers.enterValue = function(numberValue, orientationValue, confirm){
-    if (!confirm && !position.orientation){
-        console.log('Number Value : ' + numberValue);
-    } else if (!confirm && position.orientation && (orientationValue.length > 3)){
-        console.log('Orientation Value : ' + orientationValue);
-        pointer.classList.remove('north', 'east', 'south', 'west');
-        pointer.classList.add(orientationValue);
-    } else if (confirm && !position.orientation){
-        console.log('confirm : ' + confirm);
+// handle number & orientation input
+var numpadInput = {};
+numpadInput.enterValue = function(numberValue, orientationValue, confirm){
+    if (!numpadEl.classList.contains('disabled-mode')){
+        if (!confirm && !position.orientation){
+            console.log('Number Value : ' + numberValue);
+        } else if (!confirm && position.orientation && (orientationValue.length > 3)){
+            console.log('Orientation Value : ' + orientationValue);
+            pointer.classList.remove('north', 'east', 'south', 'west');
+            pointer.classList.add(orientationValue);
+        } else if (confirm && !position.orientation){
+            console.log('confirm : ' + confirm);
+        }
     }
 }
 
 // ----
+// Robot & World Logic
+// ----
 
-// Logic
+function Robot(){
+    this._privateVariable = null;
+
+    this._init = function(){
+    };
+
+    /**
+     * Private Methods
+     */
+
+    this._privateMethod = function(){
+    };
+
+    /**
+     * Public Methods
+     */
+
+    this.publicMethod = function(){
+    }
+
+    return this._init();
+}
+
+var robot = new Robot();
+
+function World(){
+    this._privateVariable = null;
+
+    this._init = function(){
+    };
+
+    /**
+     * Private Methods
+     */
+
+    this._privateMethod = function(){
+    };
+
+    /**
+     * Public Methods
+     */
+
+    this.publicMethod = function(){
+    }
+
+    return this._init();
+}
+
+var world = new World();
