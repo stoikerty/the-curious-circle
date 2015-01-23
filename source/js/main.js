@@ -229,10 +229,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 this._moveTo(this._x + x, this._y + y);
             };
 
-            this._positionIsScented = function(orientation, x, y){
-                //
+            this._isPositionScented = function(orientation, x, y){
+                var positionSteppedOn = false;
+                this._scentedPositions.forEach(function(position) {
+                    if ((position.orientation == orientation)
+                        && (position.x == x)
+                        && (position.y == y)){
 
-                return false;
+                        positionSteppedOn = position.cell;
+                    }
+                });
+
+                return positionSteppedOn;
             };
 
             this._addScentedPosition = function(orientation, x, y){
@@ -270,7 +278,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         y : Math.min(Math.max(this._y, 0), this._worldSize)
                     }
 
-                    if (!this._positionIsScented(currentPos.orientation, currentPos.x, currentPos.y)){
+                    var scentedCell = this._isPositionScented(currentPos.orientation, currentPos.x, currentPos.y);
+
+                    if (!scentedCell){
                         this._addScentedPosition(
                             currentPos.orientation,
                             currentPos.x,
@@ -279,7 +289,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         this._init();
                         console.log('dead');
                     } else {
-                        console.log('can\'t move');
+                        scentedCell.classList.add('is-stepped-on');
+                        setTimeout(function(){
+                            scentedCell.classList.remove('is-stepped-on');
+                        }, 400);
                     }
                 } else {
                     console.log('moving');

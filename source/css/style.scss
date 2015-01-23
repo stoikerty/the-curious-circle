@@ -80,7 +80,8 @@ $world-size : $grid-size * 14;
                 @include transform(scale(2));
                 @include transition(
                     opacity   0.2s $ease-in-out-quint,
-                    transform 0.4s $ease-in-out-quint
+                    transform 0.4s $ease-in-out-quint,
+                    border-radius 0.5s $ease-in-out-quint
                 );
             }
 
@@ -88,6 +89,13 @@ $world-size : $grid-size * 14;
                 &:before{
                     @include transform(scale(0.4));
                     @include opacity(0.3);
+                }
+            }
+
+            &.is-stepped-on{
+                &:before{
+                    @include transform(scale(2) rotate(20deg));
+                    @include opacity(0.2);
                 }
             }
         }
