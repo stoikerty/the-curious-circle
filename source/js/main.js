@@ -171,14 +171,23 @@ function Robot(gridSize, worldSize, robotElement){
     this._gridSize = gridSize;
     this._worldSize = worldSize;
     this._robotElement = robotElement;
-    this._pointerElement = robotElement.querySelector('.pointer');
+    this._pointerElement = this._robotElement.querySelector('.pointer');
     this._orientation = null;
     this._x = null;
     this._y = null;
+    this._scentedPositions = [];
 
     this._init = function(){
-        this._moveTo(0, 0);
-        this._turn('north');
+        var self = this;
+        self._robotElement.classList.add('is-dead');
+
+        setTimeout(function(){
+            self._moveTo(0, 0);
+            self._turn('north');
+            setTimeout(function(){
+                self._robotElement.classList.remove('is-dead');
+            }, 200);
+        }, 200);
     };
 
     /**
@@ -220,6 +229,16 @@ function Robot(gridSize, worldSize, robotElement){
         this._moveTo(this._x + x, this._y + y);
     };
 
+    this._checkScentedPosition = function(x, y){
+        //
+    };
+
+    this._addScentedPosition = function(x, y){
+        this._scentedPositions.push({x, y});
+        // create orange grid-cell
+        console.log(this._scentedPositions);
+    };
+
     this._moveTo = function(x, y){
         this._x = x;
         this._y = y;
@@ -233,6 +252,7 @@ function Robot(gridSize, worldSize, robotElement){
 
         if ((this._x > this._worldSize) || (this._x < 0) || (this._y > this._worldSize) || (this._y < 0)) {
             console.log('stepped outside', this._x, this._y);
+            this._addScentedPosition(this._x, this._y);
             this._init();
         }
     };

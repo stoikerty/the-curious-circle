@@ -68,7 +68,10 @@ $world-size : $grid-size * 14;
         @include border-box;
         top  : $world-size - $grid-size;
         left : 0;
-        @include transition(transform, 0.26s $ease-in-out-quint);
+        @include transition(
+            opacity   0.2s $ease-in-out-quint,
+            transform 0.26s $ease-in-out-quint
+        );
 
         &:before{
             z-index : 2;
@@ -84,7 +87,7 @@ $world-size : $grid-size * 14;
             z-index : 1;
             @include position(relative, block, $grid-size / 2, $grid-size / 2);
             @include border-box;
-            @include transition(transform, 0.26s $ease-in-out-quint);
+            @include transition(transform 0.26s $ease-in-out-quint);
             
             &:before{
                 @include position(absolute, block, 100%, 100%);
@@ -95,7 +98,7 @@ $world-size : $grid-size * 14;
                 background-color : #eee;
                 @include border-radius(50px);
                 border : 1px solid #666;
-                @include transition(transform, 0.26s $ease-in-out-quint);
+                @include transition(transform 0.26s $ease-in-out-quint);
             }
 
             &.north{
@@ -113,6 +116,14 @@ $world-size : $grid-size * 14;
             &.west{
                 @include transform(translateY(0) translateX(-$grid-size));
             }
+        }
+
+        &.is-dead{
+            @include opacity(0);
+            @include transition(
+                opacity   0.2s $ease-in-out-quint,
+                transform 0s none
+            );
         }
 
         &.is-breathing{
@@ -183,7 +194,7 @@ $world-size : $grid-size * 14;
             z-index : 1;
             @include isButton;
             @include transform(scale(1));
-            @include transition(transform, 0.1s $ease-in-out-quint);
+            @include transition(transform 0.1s $ease-in-out-quint);
             color : #fff;
             line-height : $button-height;
             text-align  : center;
@@ -201,7 +212,7 @@ $world-size : $grid-size * 14;
                 border-right : 1px solid #aaa;
                 border-bottom : 2px solid #999;
                 @include transform(scale(0.92));
-                @include transition(opacity, 0.07s $ease-out-quint);
+                @include transition(opacity 0.07s $ease-out-quint);
                 @include border-radius(2px);
             }
 
