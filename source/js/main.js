@@ -2,6 +2,9 @@
 // add requestanimationframe
 // make direction buttons work
 
+// ---
+
+// bind events, save elements for later use
 document.querySelector('.instructions .forward').addEventListener("click", function(e){
     e.stopPropagation();
 
@@ -54,66 +57,96 @@ for (var i=0; i<numpadButtons.length; i++){
     });
 }
 
+pointer = document.querySelector('.robot .pointer');
+
+// retrieve size of one grid-cell & the entire world-grid
+gridSize = document.querySelector('.robot').offsetWidth;
+worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize);
+
+// handle robot instructions
 instructions = {};
 instructions.forward = function(){
-    console.log('forward');
 }
 instructions.left = function(){
-    console.log('left');
 }
 instructions.right = function(){
-    console.log('right');
 }
 
+// handle positioning for X, Y and orientation
 position = {};
 position.x = false;
 position.y = false;
 position.orientation = false;
 position.toggleX = function(){
-    console.log('setX');
     position.x = !position.x;
     position.y = false;
     position.orientation = false;
     numpad.showType();
 }
 position.toggleY = function(){
-    console.log('setY');
     position.x = false;
     position.y = !position.y;
     position.orientation = false;
     numpad.showType();
 }
 position.toggleOrientation = function(){
-    console.log('setOrientation');
     position.x = false;
     position.y = false;
     position.orientation = !position.orientation;
     numpad.showType();
 }
 
-numbers = {};
-numbers.enterValue = function(numberValue, orientationValue, confirm){
-    if (!confirm && !position.orientation){
-        console.log('Number Value : ' + numberValue);
-    } else if (!confirm && position.orientation && (orientationValue.length > 2)){
-        console.log('Orientation Value : ' + orientationValue);
-    } else if (confirm){
-        console.log('confirm : ' + confirm);
-    }
-}
-
+// switch classes for using the appropriate version of the numpad
 var numpad = {};
 numpad.showType = function(){
-    if (position.x) numpadButton.x.classList.add('is-active')
-    else numpadButton.x.classList.remove('is-active');
-    if (position.y) numpadButton.y.classList.add('is-active')
-    else numpadButton.y.classList.remove('is-active');
+    if (position.x) {
+        numpadButton.x.classList.add('is-active');
+        numpadEl.classList.add('number-mode');
+    }
+    else {
+        numpadButton.x.classList.remove('is-active');
+        if (numpadEl.classList.contains('number-mode')) numpadEl.classList.remove('number-mode');
+    }
+
+    if (position.y) {
+        numpadButton.y.classList.add('is-active');
+        numpadEl.classList.add('number-mode');
+    }
+    else {
+        numpadButton.y.classList.remove('is-active');
+        if ((!position.x) && (numpadEl.classList.contains('number-mode'))) numpadEl.classList.remove('number-mode');
+    }
+
     if (position.orientation){
         numpadButton.orientation.classList.add('is-active');
         numpadEl.classList.add('orientation-mode');
     }
     else {
         numpadButton.orientation.classList.remove('is-active');
-        numpadEl.classList.remove('orientation-mode');
+        if (numpadEl.classList.contains('orientation-mode')) numpadEl.classList.remove('orientation-mode');
+    }
+
+    if (!numpadEl.classList.contains('number-mode') && !numpadEl.classList.contains('orientation-mode')){
+        numpadEl.classList.add('disabled-mode');
+    } else if (numpadEl.classList.contains('disabled-mode')) {
+        numpadEl.classList.remove('disabled-mode');
     }
 }
+
+// handle number input
+numbers = {};
+numbers.enterValue = function(numberValue, orientationValue, confirm){
+    if (!confirm && !position.orientation){
+        console.log('Number Value : ' + numberValue);
+    } else if (!confirm && position.orientation && (orientationValue.length > 3)){
+        console.log('Orientation Value : ' + orientationValue);
+        pointer.classList.remove('north', 'east', 'south', 'west');
+        pointer.classList.add(orientationValue);
+    } else if (confirm && !position.orientation){
+        console.log('confirm : ' + confirm);
+    }
+}
+
+// ----
+
+// Logic
