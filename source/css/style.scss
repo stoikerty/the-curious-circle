@@ -31,7 +31,7 @@
 // Variables
 // --
 $grid-size : 17px;
-$world-size : $grid-size * 15;
+$world-size : $grid-size * 14;
 
 
 // Styling
@@ -195,7 +195,7 @@ $world-size : $grid-size * 15;
             }
 
             &:hover{
-                &:after{ @include opacity(0.8); }
+                &:after{ @include opacity(0.86); }
             }
 
             &:active{
@@ -230,6 +230,7 @@ $world-size : $grid-size * 15;
             &.is-active{
                 &:after{
                     background-color : $red-dark;
+                    @include opacity(1);
                 }
             }
         }
@@ -314,7 +315,10 @@ $world-size : $grid-size * 15;
                         float : left;
                         @include border-box;
 
-                        @include transition(opacity ease-in-out 0.2s);
+                        @include transition(
+                            opacity ease-in-out 0.18s,
+                            transform ease-in-out 0.14s
+                        );
 
                         &:before{
                             content : attr(data-number);
@@ -324,20 +328,21 @@ $world-size : $grid-size * 15;
                             width : (33.333% * 2);
                         }
                     }
+                }
 
-                    &.orientation-mode{
-                        .number{
-                            &:before{
-                                content : attr(data-orientation);
-                            }
+                &.orientation-mode .numbers{
+                    .number{
+                        &:before{
+                            content : attr(data-orientation);
+                        }
 
-                            &.nr2, &.nr4, &.nr6, &.nr8{
-                                font-size : 0.6em;
-                            }
+                        &.nr2, &.nr4, &.nr6, &.nr8{
+                            font-size : 0.6em;
+                        }
 
-                            &.nr1, &.nr3, &.nr5, &.nr7, &.nr9, &.nr0{
-                                @include opacity(0.2);
-                            }
+                        &.nr1, &.nr3, &.nr5, &.nr7, &.nr9, &.nr0{
+                            @include opacity(0.2);
+                            @include transform(scale(0.8));
                         }
                     }
                 }
