@@ -25,25 +25,36 @@ document.addEventListener("DOMContentLoaded", function(event) {
             e.stopPropagation();
             var inputText = e.target.value;
 
-            console.log(e.target.value, e.keyCode);
-
             if (e.keyCode == 13) {
-                for (var i = 0; i < inputText.length; i++) {
-                    e.target.value = '';
-                    console.log(inputText[i]);
-                    var commands = [];
-                    var currentLetter = inputText[i].toUpperCase();
+                e.target.value = '';
+                inputWords = inputText.split(' ');
 
-                    if (currentLetter === 'F') instructions.forward();
-                    if (currentLetter === 'L') instructions.left();
-                    if (currentLetter === 'R') instructions.right();
+                console.log(inputWords);
 
-                    if (currentLetter === 'N') robot.orientation('north');
-                    if (currentLetter === 'E') robot.orientation('east');
-                    if (currentLetter === 'W') robot.orientation('west');
-                    if (currentLetter === 'S') robot.orientation('south');
-
-                    if (parseInt(currentLetter, 10)) {
+                if (parseInt(inputText[0], 10)) {
+                    // if text starts with a number it will be processed as a position
+                    for (var i = 0; i < inputWords.length; i++) {
+                        if (parseInt(inputWords[i], 10)) {
+                            var currentNumber = Math.min(parseInt(inputWords[i], 10), 50);
+                            console.log(currentNumber);
+                        } else {
+                            for (var j = 0; j < inputWords[i].length; j++) {
+                                var currentLetter = inputWords[i][j].toUpperCase();
+                                if (currentLetter === 'N') robot.orientation('north');
+                                if (currentLetter === 'E') robot.orientation('east');
+                                if (currentLetter === 'W') robot.orientation('west');
+                                if (currentLetter === 'S') robot.orientation('south');
+                            }
+                        }
+                    }
+                } else {
+                    // otherwise it will pe processed as an instruction
+                    console.log(inputText);
+                    for (var k = 0; k < inputText.length; k++) {
+                        var currentLetter = inputText[k].toUpperCase();
+                        if (currentLetter === 'F') instructions.forward();
+                        if (currentLetter === 'L') instructions.left();
+                        if (currentLetter === 'R') instructions.right();
                         console.log(currentLetter);
                     }
                 }
