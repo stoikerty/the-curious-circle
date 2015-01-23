@@ -1,0 +1,810 @@
+@-moz-keyframes robotBreathing {
+  /* line 7, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -moz-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 10, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -moz-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  /* line 13, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -moz-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+}
+
+@-webkit-keyframes robotBreathing {
+  /* line 7, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 10, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  /* line 13, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+}
+
+@-o-keyframes robotBreathing {
+  /* line 7, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 10, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -o-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  /* line 13, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+}
+
+@-ms-keyframes robotBreathing {
+  /* line 7, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -ms-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 10, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  /* line 13, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -ms-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+}
+
+@keyframes robotBreathing {
+  /* line 7, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    transform: scale(0.6);
+  }
+
+  /* line 10, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    transform: scale(0.8);
+  }
+
+  /* line 13, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    transform: scale(0.6);
+  }
+}
+
+@-moz-keyframes pointerBreathing {
+  /* line 19, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -moz-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+
+  /* line 22, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -moz-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 25, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -moz-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+}
+
+@-webkit-keyframes pointerBreathing {
+  /* line 19, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -webkit-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+
+  /* line 22, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -webkit-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 25, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -webkit-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+}
+
+@-o-keyframes pointerBreathing {
+  /* line 19, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -o-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+
+  /* line 22, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -o-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 25, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -o-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+}
+
+@-ms-keyframes pointerBreathing {
+  /* line 19, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    -ms-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+
+  /* line 22, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    -ms-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+
+  /* line 25, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    -ms-transform: scale(0.4);
+    transform: scale(0.4);
+  }
+}
+
+@keyframes pointerBreathing {
+  /* line 19, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  0% {
+    transform: scale(0.4);
+  }
+
+  /* line 22, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  50% {
+    transform: scale(0.6);
+  }
+
+  /* line 25, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+  100% {
+    transform: scale(0.4);
+  }
+}
+
+/* line 39, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.content {
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+  text-align: center;
+}
+
+/* line 45, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.inner-content {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  -o-perspective: 1000;
+  perspective: 1000;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  -o-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  padding: 0 5px;
+}
+
+/* line 52, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid {
+  z-index: 2;
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  width: 252px;
+  height: 252px;
+  margin: 18px 0 0;
+  vertical-align: top;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08), 0px 0px 30px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08), 0px 0px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08), 0px 0px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ddd;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+/* line 67, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .grid-cells .cell {
+  z-index: 1;
+  position: absolute;
+  display: block;
+  width: 18px;
+  height: 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  top: 234px;
+  left: 0;
+}
+/* line 74, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .grid-cells .cell:before {
+  position: absolute;
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  top: 0;
+  left: 0;
+  max-width: 90px;
+  max-height: 90px;
+  padding: 8px;
+  background-color: #fc8c1f;
+  content: 'LOST';
+  color: #000;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transform: scale(2);
+  -moz-transform: scale(2);
+  -ms-transform: scale(2);
+  -o-transform: scale(2);
+  transform: scale(2);
+  -webkit-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0.8s cubic-bezier(0.86, 0, 0.07, 1), color 0.8s cubic-bezier(0.86, 0, 0.07, 1), max-width 1.2s cubic-bezier(0.86, 0, 0.07, 1), max-height 1.2s cubic-bezier(0.86, 0, 0.07, 1), border-radius 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -moz-transform 0.8s cubic-bezier(0.86, 0, 0.07, 1), color 0.8s cubic-bezier(0.86, 0, 0.07, 1), max-width 1.2s cubic-bezier(0.86, 0, 0.07, 1), max-height 1.2s cubic-bezier(0.86, 0, 0.07, 1), border-radius 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+  -o-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -o-transform 0.8s cubic-bezier(0.86, 0, 0.07, 1), color 0.8s cubic-bezier(0.86, 0, 0.07, 1), max-width 1.2s cubic-bezier(0.86, 0, 0.07, 1), max-height 1.2s cubic-bezier(0.86, 0, 0.07, 1), border-radius 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), transform 0.8s cubic-bezier(0.86, 0, 0.07, 1), color 0.8s cubic-bezier(0.86, 0, 0.07, 1), max-width 1.2s cubic-bezier(0.86, 0, 0.07, 1), max-height 1.2s cubic-bezier(0.86, 0, 0.07, 1), border-radius 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+}
+/* line 101, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .grid-cells .cell.is-active:before {
+  -webkit-transform: scale(0.4);
+  -moz-transform: scale(0.4);
+  -ms-transform: scale(0.4);
+  -o-transform: scale(0.4);
+  transform: scale(0.4);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+  max-width: 18px;
+  max-height: 18px;
+  color: transparent;
+}
+/* line 111, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .grid-cells .cell.is-stepped-on:before {
+  -webkit-transform: scale(2) rotate(20deg);
+  -moz-transform: scale(2) rotate(20deg);
+  -ms-transform: scale(2) rotate(20deg);
+  -o-transform: scale(2) rotate(20deg);
+  transform: scale(2) rotate(20deg);
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+  opacity: 0.4;
+}
+/* line 119, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot {
+  z-index: 2;
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  top: 234px;
+  left: 0;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -moz-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  -o-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -o-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+}
+/* line 130, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot:before {
+  z-index: 2;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  -ms-transform: scale(0.6);
+  -o-transform: scale(0.6);
+  transform: scale(0.6);
+  content: ' ';
+  background-color: #444;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  border-radius: 50px;
+}
+/* line 140, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot .pointer {
+  z-index: 1;
+  position: relative;
+  display: block;
+  width: 9px;
+  height: 9px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: -webkit-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: -moz-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  -o-transition: -o-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+}
+/* line 146, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot .pointer:before {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 3.6px;
+  left: 3.6px;
+  -webkit-transform: scale(0.6);
+  -moz-transform: scale(0.6);
+  -ms-transform: scale(0.6);
+  -o-transform: scale(0.6);
+  transform: scale(0.6);
+  content: ' ';
+  background-color: #eee;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+  border-radius: 50px;
+  border: 1px solid #666;
+  -webkit-transition: -webkit-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: -moz-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  -o-transition: -o-transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.26s cubic-bezier(0.86, 0, 0.07, 1);
+}
+/* line 158, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot .pointer.north {
+  -webkit-transform: translateY(-18px) translateX(0);
+  -moz-transform: translateY(-18px) translateX(0);
+  -ms-transform: translateY(-18px) translateX(0);
+  -o-transform: translateY(-18px) translateX(0);
+  transform: translateY(-18px) translateX(0);
+}
+/* line 162, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot .pointer.east {
+  -webkit-transform: translateY(0) translateX(18px);
+  -moz-transform: translateY(0) translateX(18px);
+  -ms-transform: translateY(0) translateX(18px);
+  -o-transform: translateY(0) translateX(18px);
+  transform: translateY(0) translateX(18px);
+}
+/* line 166, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot .pointer.south {
+  -webkit-transform: translateY(18px) translateX(0);
+  -moz-transform: translateY(18px) translateX(0);
+  -ms-transform: translateY(18px) translateX(0);
+  -o-transform: translateY(18px) translateX(0);
+  transform: translateY(18px) translateX(0);
+}
+/* line 170, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot .pointer.west {
+  -webkit-transform: translateY(0) translateX(-18px);
+  -moz-transform: translateY(0) translateX(-18px);
+  -ms-transform: translateY(0) translateX(-18px);
+  -o-transform: translateY(0) translateX(-18px);
+  transform: translateY(0) translateX(-18px);
+}
+/* line 175, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot.is-dead {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  opacity: 0;
+  -webkit-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -webkit-transform 0s none;
+  -moz-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -moz-transform 0s none;
+  -o-transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), -o-transform 0s none;
+  transition: opacity 0.2s cubic-bezier(0.86, 0, 0.07, 1), transform 0s none;
+}
+/* line 184, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot.is-breathing:before {
+  -webkit-animation: robotBreathing cubic-bezier(0.23, 1, 0.32, 1) 5s infinite;
+  -moz-animation: robotBreathing cubic-bezier(0.23, 1, 0.32, 1) 5s infinite;
+  -ms-animation: robotBreathing cubic-bezier(0.23, 1, 0.32, 1) 5s infinite;
+  -o-animation: robotBreathing cubic-bezier(0.23, 1, 0.32, 1) 5s infinite;
+  animation: robotBreathing cubic-bezier(0.23, 1, 0.32, 1) 5s infinite;
+}
+/* line 189, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot.is-breathing .pointer:before {
+  -webkit-animation: pointerBreathing cubic-bezier(0.86, 0, 0.07, 1) 5s infinite;
+  -moz-animation: pointerBreathing cubic-bezier(0.86, 0, 0.07, 1) 5s infinite;
+  -ms-animation: pointerBreathing cubic-bezier(0.86, 0, 0.07, 1) 5s infinite;
+  -o-animation: pointerBreathing cubic-bezier(0.86, 0, 0.07, 1) 5s infinite;
+  animation: pointerBreathing cubic-bezier(0.86, 0, 0.07, 1) 5s infinite;
+}
+/* line 197, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.world-grid .robot.is-moving .pointer {
+  -webkit-transform: translateY(0) translateX(0);
+  -moz-transform: translateY(0) translateX(0);
+  -ms-transform: translateY(0) translateX(0);
+  -o-transform: translateY(0) translateX(0);
+  transform: translateY(0) translateX(0);
+}
+
+/* line 204, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input {
+  z-index: 1;
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  width: 216px;
+  margin: 18px 18px 0;
+  vertical-align: top;
+}
+/* line 212, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .current-input {
+  z-index: 2;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 26px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  padding: 1px 8px 1px;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08), 0px 0px 30px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08), 0px 0px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.08), 0px 0px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ccc;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  line-height: 26px;
+  letter-spacing: 0.06em;
+  font-size: 1em;
+  color: #999;
+}
+/* line 232, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .current-input:focus {
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.14), 0px 0px 30px rgba(0, 0, 0, 0.08);
+  -moz-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.14), 0px 0px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.14), 0px 0px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #aaa;
+}
+/* line 241, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard {
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+  padding: 6px 2px 0px;
+}
+/* line 248, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button {
+  z-index: 1;
+  cursor: pointer;
+  text-decoration: none;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: -webkit-transform 0.1s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: -moz-transform 0.1s cubic-bezier(0.86, 0, 0.07, 1);
+  -o-transition: -o-transform 0.1s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 0.1s cubic-bezier(0.86, 0, 0.07, 1);
+  color: #fff;
+  line-height: 36px;
+  text-align: center;
+  font-weight: bold;
+}
+/* line 139, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/_helpers.scss */
+.command-input .touch-keyboard .button::-moz-focus-inner {
+  padding: 0 !important;
+  margin: -1px !important;
+}
+/* line 258, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button:after {
+  z-index: -1;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  content: ' ';
+  background-color: #444;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #aaa;
+  border-bottom: 2px solid #999;
+  -webkit-transform: scale(0.92);
+  -moz-transform: scale(0.92);
+  -ms-transform: scale(0.92);
+  -o-transform: scale(0.92);
+  transform: scale(0.92);
+  -webkit-transition: opacity 0.07s cubic-bezier(0.23, 1, 0.32, 1);
+  -moz-transition: opacity 0.07s cubic-bezier(0.23, 1, 0.32, 1);
+  -o-transition: opacity 0.07s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.07s cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+/* line 275, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button:hover:after {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=86);
+  opacity: 0.86;
+}
+/* line 278, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button:active {
+  -webkit-transform: scaleY(0.93) scaleX(0.96);
+  -moz-transform: scaleY(0.93) scaleX(0.96);
+  -ms-transform: scaleY(0.93) scaleX(0.96);
+  -o-transform: scaleY(0.93) scaleX(0.96);
+  transform: scaleY(0.93) scaleX(0.96);
+}
+/* line 280, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button:active:after {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 284, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button.green-dark:after {
+  background-color: #38a03e;
+}
+/* line 290, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button.blue-dark:after {
+  background-color: #0c68c3;
+}
+/* line 296, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button.blue-light:after {
+  background-color: #268ce6;
+}
+/* line 302, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button.orange-dark:after {
+  background-color: #ea7e0f;
+}
+/* line 308, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .button.is-active:after {
+  background-color: #bc2d20;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+  opacity: 1;
+}
+/* line 315, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .left {
+  position: relative;
+  display: block;
+  width: 40%;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 3px;
+}
+/* line 321, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .left .instructions {
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+}
+/* line 325, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .left .instructions .forward, .command-input .touch-keyboard .left .instructions .left, .command-input .touch-keyboard .left .instructions .right {
+  position: relative;
+  display: block;
+  width: 33.333%;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 331, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .left .instructions .forward {
+  width: 100%;
+}
+/* line 334, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .left .instructions .left, .command-input .touch-keyboard .left .instructions .right {
+  width: 50%;
+  line-height: 57.6px;
+}
+/* line 340, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .left .history {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 108px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  float: left;
+  padding: 4px 6px 8px;
+  margin-top: 6px;
+  background-color: #f4f4f4;
+  text-align: left;
+  font-size: 0.8em;
+  color: #888;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0px 0px 4px white, inset 0px 1px 1px rgba(0, 0, 0, 0.08), inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 4px white, inset 0px 1px 1px rgba(0, 0, 0, 0.08), inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 4px white, inset 0px 1px 1px rgba(0, 0, 0, 0.08), inset 0px 0px 4px rgba(0, 0, 0, 0.1);
+}
+/* line 362, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right {
+  position: relative;
+  display: block;
+  width: 60%;
+  float: right;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 3px;
+}
+/* line 369, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .position {
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+  padding-bottom: 5px;
+}
+/* line 374, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .position .x, .command-input .touch-keyboard .right .numpad .position .y, .command-input .touch-keyboard .right .numpad .position .orientation {
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+  font-size: 0.7em;
+}
+/* line 380, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .position .x, .command-input .touch-keyboard .right .numpad .position .y {
+  width: 50%;
+}
+/* line 383, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .position .orientation {
+  width: 100%;
+  margin-top: 2px;
+}
+/* line 388, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .numbers {
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+}
+/* line 391, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .numbers .number {
+  position: relative;
+  display: block;
+  width: 33.333%;
+  float: left;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: opacity ease-in-out, -webkit-transform ease-in-out;
+  -webkit-transition-delay: 0.18s, 0.14s;
+  -moz-transition: opacity ease-in-out 0.18s, -moz-transform ease-in-out 0.14s;
+  -o-transition: opacity ease-in-out 0.18s, -o-transform ease-in-out 0.14s;
+  transition: opacity ease-in-out 0.18s, transform ease-in-out 0.14s;
+}
+/* line 401, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .numbers .number:before {
+  content: '\00a0 ';
+}
+/* line 405, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad .numbers .number.nr0 {
+  width: 66.666%;
+}
+/* line 412, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad.disabled-mode .numbers .number {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+  opacity: 0.2;
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  color: rgba(255, 255, 255, 0);
+}
+/* line 421, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad.number-mode .numbers .number:before {
+  content: attr(data-number);
+}
+/* line 429, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number:before {
+  content: attr(data-orientation);
+}
+/* line 433, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr2, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr4, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr6, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr8 {
+  font-size: 0.5em;
+}
+/* line 437, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr1, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr3, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr5, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr7, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr9, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.nr0, .command-input .touch-keyboard .right .numpad.orientation-mode .numbers .number.confirm {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+  opacity: 0.2;
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  transform: scale(0.7);
+  color: rgba(255, 255, 255, 0);
+}
+/* line 448, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .history {
+  z-index: 1;
+  position: relative;
+  display: block;
+  width: 100%;
+  float: left;
+}
+/* line 453, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .history .command {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 26px;
+  float: left;
+  margin-top: 10px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  border-radius: 2px;
+}
+/* line 463, C:/Dropbox/_repositories/the-melting-pot/the-curious-circle/source/css/style.scss */
+.command-input .history .command + .command {
+  border: 1px solid #fff;
+}
