@@ -72,15 +72,27 @@ $world-size : $grid-size * 14;
             left : 0;
 
             &:before{
-                @include position(absolute, block, 100%, 100%);
-                content : ' ';
+                @include position(absolute, block);
+                @include border-box;
+                margin  : 0;
+                top  : 0;
+                left : 0;
+                max-width  : $grid-size * 5;
+                max-height : $grid-size * 5;
+                padding : 8px;
                 background-color : $orange;
+
+                content : 'LOST';
+                color   : #000;
 
                 @include opacity(0);
                 @include transform(scale(2));
                 @include transition(
                     opacity   0.2s $ease-in-out-quint,
-                    transform 0.4s $ease-in-out-quint,
+                    transform 0.8s $ease-in-out-quint,
+                    color     0.8s $ease-in-out-quint,
+                    max-width 1.2s $ease-in-out-quint,
+                    max-height 1.2s $ease-in-out-quint,
                     border-radius 0.5s $ease-in-out-quint
                 );
             }
@@ -88,14 +100,17 @@ $world-size : $grid-size * 14;
             &.is-active{
                 &:before{
                     @include transform(scale(0.4));
-                    @include opacity(0.3);
+                    @include opacity(0.4);
+                    max-width  : $grid-size;
+                    max-height : $grid-size;
+                    color : transparent;
                 }
             }
 
             &.is-stepped-on{
                 &:before{
                     @include transform(scale(2) rotate(20deg));
-                    @include opacity(0.2);
+                    @include opacity(0.4);
                 }
             }
         }

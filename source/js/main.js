@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             this._addScentedPosition = function(orientation, x, y){
                 console.log('stepped outside', x, y);
 
-                // create active grid-cell
+                // create active grid-cell at correct position
                 console.log(this._scentedPositions);
                 var scentedCell = this._gridElement.cloneNode(true);
                 translate(scentedCell, (x * this._gridSize), (-y * this._gridSize));
