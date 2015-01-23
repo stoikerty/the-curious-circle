@@ -60,8 +60,6 @@ for (var i=0; i<numpadButtons.length; i++){
     });
 }
 
-var pointer = document.querySelector('.robot .pointer');
-
 // retrieve size of one grid-cell & the entire world-grid
 var gridSize = document.querySelector('.robot').offsetWidth;
 var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize);
@@ -154,15 +152,31 @@ numpadInput.enterValue = function(numberValue, orientationValue, confirm){
 }
 
 // ----
+// Utility Functions
+// ----
+
+function translate(element, x, y) {
+    element.style["-webkit-transform"] = "translate(" + x + "px, " + y + "px)";
+    element.style["-moz-transform"]    = "translate(" + x + "px, " + y + "px)";
+    element.style["-ms-transform"]     = "translate(" + x + "px, " + y + "px)";
+    element.style["-o-transform"]      = "translate(" + x + "px, " + y + "px)";
+    element.style["transform"]         = "translate(" + x + "px, " + y + "px)";
+}
+
+// ----
 // Robot & World Logic
 // ----
 
-function Robot(gridSize, pointerElement){
+function Robot(gridSize, robotElement){
     this._gridSize = gridSize;
-    this._pointerElement = pointerElement;
-    this._orientation = '';
+    this._robotElement = robotElement;
+    this._pointerElement = robotElement.querySelector('.pointer');
+    this._orientation = null;
+    this._x = null;
+    this._y = null;
 
     this._init = function(){
+        this._moveTo(0, 0);
         this._turn('north');
     };
 
@@ -171,6 +185,10 @@ function Robot(gridSize, pointerElement){
      */
 
     this._moveForward = function(){
+        if (this._orientation == 'north') this._move(0, -1);
+        if (this._orientation == 'east')  this._move(1, 0);
+        if (this._orientation == 'south') this._move(0, 1);
+        if (this._orientation == 'west')  this._move(-1, 0);
     };
 
     this._turn = function(toOrientation){
@@ -197,7 +215,20 @@ function Robot(gridSize, pointerElement){
         this._pointerElement.classList.add(this._orientation);
     };
 
-    this._moveTo = function(){
+    this._move = function(x, y){
+        this._moveTo(this._x + x, this._y + y);
+    };
+
+    this._moveTo = function(x, y){
+        this._x = x;
+        this._y = y;
+        translate(this._robotElement, (this._x * this._gridSize), (this._y * this._gridSize));
+        
+        var self = this;
+        self._robotElement.classList.add('is-moving');
+        setTimeout(function(){
+            self._robotElement.classList.remove('is-moving');
+        }, 200);
     };
 
     /**
@@ -223,7 +254,7 @@ function Robot(gridSize, pointerElement){
     return this._init();
 }
 
-var robot = new Robot(gridSize, pointer);
+var robot = new Robot(gridSize, document.querySelector('.robot'));
 
 function World(worldSize, robot){
     this._size = worldSize;

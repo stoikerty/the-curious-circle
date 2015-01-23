@@ -48,6 +48,7 @@ $world-size : $grid-size * 14;
 }
 
 .world-grid{
+    z-index : 2;
     @include position(relative, inline-block, $world-size, $world-size);
     margin : $grid-size 0 0;
     vertical-align : top;
@@ -67,9 +68,10 @@ $world-size : $grid-size * 14;
         @include border-box;
         top  : $world-size - $grid-size;
         left : 0;
+        @include transition(transform, 0.26s $ease-in-out-quint);
 
         &:before{
-            z-index : 1;
+            z-index : 2;
             @include position(absolute, block, 100%, 100%);
             @include border-box;
             @include transform(scale(0.6));
@@ -78,21 +80,8 @@ $world-size : $grid-size * 14;
             @include border-radius(50px);
         }
 
-        &.is-breathing{
-            &:before{
-                @include animation(
-                    robotBreathing $ease-out-quint 5s infinite
-                );
-            } 
-            .pointer:before{
-                @include animation(
-                    pointerBreathing $ease-in-out-quint 5s infinite
-                );
-            } 
-        }        
-
         .pointer{
-            z-index : 2;
+            z-index : 1;
             @include position(relative, block, $grid-size / 2, $grid-size / 2);
             @include border-box;
             @include transition(transform, 0.26s $ease-in-out-quint);
@@ -106,6 +95,7 @@ $world-size : $grid-size * 14;
                 background-color : #eee;
                 @include border-radius(50px);
                 border : 1px solid #666;
+                @include transition(transform, 0.26s $ease-in-out-quint);
             }
 
             &.north{
@@ -124,14 +114,35 @@ $world-size : $grid-size * 14;
                 @include transform(translateY(0) translateX(-$grid-size));
             }
         }
+
+        &.is-breathing{
+            &:before{
+                @include animation(
+                    robotBreathing $ease-out-quint 5s infinite
+                );
+            } 
+            .pointer:before{
+                @include animation(
+                    pointerBreathing $ease-in-out-quint 5s infinite
+                );
+            } 
+        }
+
+        &.is-moving{
+            .pointer{
+                @include transform(translateY(0) translateX(0));
+            } 
+        }
     }
 }
 
 .command-input{
-    $input-height : 24px;
+    z-index : 1;
     @include position(relative, inline-block, $world-size - ($grid-size * 2));
     margin : $grid-size ($grid-size) 0;
     vertical-align : top;
+
+    $input-height : 24px;
 
     .current-input{
         z-index : 2;
