@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         // ----
-        // Robot & World Logic
+        // Robot Logic
         // ----
 
         function Robot(gridSize, worldSize, worldElement){
@@ -229,11 +229,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 this._moveTo(this._x + x, this._y + y);
             };
 
-            this._checkScentedPosition = function(x, y){
+            this._positionIsScented = function(orientation, x, y){
                 //
+
+                return false;
             };
 
-            this._addScentedPosition = function(x, y){
+            this._addScentedPosition = function(orientation, x, y){
                 console.log('stepped outside', x, y);
 
                 // create active grid-cell
@@ -245,27 +247,45 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     scentedCell.classList.add('is-active');
                 }, 200);
 
-                this._scentedPositions.push({ x : x, y : y, cell : scentedCell });
+                this._scentedPositions.push({
+                    orientation : orientation,
+                    x : x,
+                    y : y,
+                    cell : scentedCell
+                });
                 this._gridCells.appendChild(scentedCell);
             };
 
             this._moveTo = function(x, y){
-                this._x = x;
-                this._y = y;
-                translate(this._robotElement, (this._x * this._gridSize), (-this._y * this._gridSize));
-                
                 var self = this;
                 self._robotElement.classList.add('is-moving');
                 setTimeout(function(){
                     self._robotElement.classList.remove('is-moving');
                 }, 200);
 
-                if ((this._x > this._worldSize) || (this._x < 0) || (this._y > this._worldSize) || (this._y < 0)) {
-                    this._addScentedPosition(
-                        Math.min(Math.max(this._x, 0), this._worldSize),
-                        Math.min(Math.max(this._y, 0), this._worldSize)
-                    );
-                    this._init();
+                if ((x > this._worldSize) || (x < 0) || (y > this._worldSize) || (y < 0)) {
+                    var currentPos = {
+                        orientation : this._orientation,
+                        x : Math.min(Math.max(this._x, 0), this._worldSize),
+                        y : Math.min(Math.max(this._y, 0), this._worldSize)
+                    }
+
+                    if (!this._positionIsScented(currentPos.orientation, currentPos.x, currentPos.y)){
+                        this._addScentedPosition(
+                            currentPos.orientation,
+                            currentPos.x,
+                            currentPos.y
+                        );
+                        this._init();
+                        console.log('dead');
+                    } else {
+                        console.log('can\'t move');
+                    }
+                } else {
+                    console.log('moving');
+                    this._x = x;
+                    this._y = y;                
+                    translate(this._robotElement, (this._x * this._gridSize), (-this._y * this._gridSize));
                 }
             };
 
@@ -293,31 +313,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         var robot = new Robot(gridSize, worldSize, document.querySelector('.world-grid'));
-
-        function World(worldSize, robot){
-            this._size = worldSize;
-            this._robot = robot;
-
-            this._init = function(){
-            };
-
-            /**
-             * Private Methods
-             */
-
-            this._privateMethod = function(){
-            };
-
-            /**
-             * Public Methods
-             */
-
-            this.publicMethod = function(){
-            }
-
-            return this._init();
-        }
-
-        var world = new World(worldSize, robot);
     })(document);
 });
