@@ -167,10 +167,13 @@ function translate(element, x, y) {
 // Robot & World Logic
 // ----
 
-function Robot(gridSize, worldSize, robotElement){
+function Robot(gridSize, worldSize, worldElement){
     this._gridSize = gridSize;
     this._worldSize = worldSize;
-    this._robotElement = robotElement;
+    this._worldElement = worldElement;
+    this._gridCells = this._worldElement.querySelector('.grid-cells');
+    this._gridElement = this._gridCells.querySelector('.cell');
+    this._robotElement = this._worldElement.querySelector('.robot');
     this._pointerElement = this._robotElement.querySelector('.pointer');
     this._orientation = null;
     this._x = null;
@@ -234,9 +237,19 @@ function Robot(gridSize, worldSize, robotElement){
     };
 
     this._addScentedPosition = function(x, y){
-        this._scentedPositions.push({x, y});
-        // create orange grid-cell
+        console.log('stepped outside', x, y);
+
+        // create active grid-cell
         console.log(this._scentedPositions);
+        var scentedCell = this._gridElement.cloneNode(true);
+        translate(scentedCell, (x * this._gridSize), (-y * this._gridSize));
+
+        setTimeout(function(){
+            scentedCell.classList.add('is-active');
+        }, 200);
+
+        this._scentedPositions.push({x, y, scentedCell});
+        this._gridCells.appendChild(scentedCell);
     };
 
     this._moveTo = function(x, y){
@@ -251,8 +264,10 @@ function Robot(gridSize, worldSize, robotElement){
         }, 200);
 
         if ((this._x > this._worldSize) || (this._x < 0) || (this._y > this._worldSize) || (this._y < 0)) {
-            console.log('stepped outside', this._x, this._y);
-            this._addScentedPosition(this._x, this._y);
+            this._addScentedPosition(
+                Math.min(Math.max(this._x, 0), this._worldSize),
+                Math.min(Math.max(this._y, 0), this._worldSize)
+            );
             this._init();
         }
     };
@@ -280,7 +295,7 @@ function Robot(gridSize, worldSize, robotElement){
     return this._init();
 }
 
-var robot = new Robot(gridSize, worldSize, document.querySelector('.robot'));
+var robot = new Robot(gridSize, worldSize, document.querySelector('.world-grid'));
 
 function World(worldSize, robot){
     this._size = worldSize;

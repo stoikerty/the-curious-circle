@@ -43,6 +43,8 @@ $world-size : $grid-size * 14;
 }
 
 .inner-content{
+    @include isAnimated;
+    @include transform-origin(50%, 50%);
     @include position(relative, inline-block);
     padding : 0 5px;
 }
@@ -61,9 +63,38 @@ $world-size : $grid-size * 14;
     border : 1px solid #ddd;
     @include border-radius(2px);
 
+    .grid-cells{
+        .cell{
+            z-index : 1;
+            @include position(absolute, block, $grid-size, $grid-size);
+            @include border-box;
+            top  : $world-size - $grid-size;
+            left : 0;
+
+            &:before{
+                @include position(absolute, block, 100%, 100%);
+                content : ' ';
+                background-color : $orange;
+
+                @include opacity(0);
+                @include transform(scale(2));
+                @include transition(
+                    opacity   0.2s $ease-in-out-quint,
+                    transform 0.4s $ease-in-out-quint
+                );
+            }
+
+            &.is-active{
+                &:before{
+                    @include transform(scale(0.7));
+                    @include opacity(0.2);
+                }
+            }
+        }
+    }
+
     .robot{
-        z-index : 1;
-        @include isAnimated;
+        z-index : 2;
         @include position(relative, block, $grid-size, $grid-size);
         @include border-box;
         top  : $world-size - $grid-size;
