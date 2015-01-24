@@ -120,11 +120,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     if (!isNumber(x) || !isNumber(y)) {
                         if (isNumber(x)) {
                             this._checkOrientation(this._x, x, null, null);
-                            this._x = x;
+                            this._x = Math.min(Math.max(x, 0), this._worldSize);
                         }
                         if (isNumber(y)) {
                             this._checkOrientation(null, null, this._y, y);
-                            this._y = y;
+                            this._y = Math.min(Math.max(y, 0), this._worldSize);
                         }
                     }
 
@@ -149,6 +149,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         // and re-initialize the robot
                         this._init();
                     } else {
+                        translate(this._robotElement, (this._x * this._gridSize), (-this._y * this._gridSize));
+
                         // or show visually that the robot can't move forward
                         scentedCell.classList.add('is-stepped-on');
                         self._robotElement.classList.remove('is-moving');
