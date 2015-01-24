@@ -220,8 +220,8 @@ $world-size : $grid-size * 14;
 
 .command-input{
     z-index : 1;
-    @include position(relative, inline-block, $world-size - ($grid-size * 2));
-    margin : ($grid-size / 2) ($grid-size) 0;
+    @include position(relative, inline-block, $world-size - ($grid-size));
+    margin : ($grid-size / 2) ($grid-size / 2) 0;
     vertical-align : top;
 
     $input-height : 26px;
