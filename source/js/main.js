@@ -1,10 +1,28 @@
 document.addEventListener("DOMContentLoaded", function(event) {
     (function (document){
         // ----
+        // Utility Functions
+        // ----
+
+        function translate(element, x, y) {
+            element.style["-webkit-transform"] = "translate(" + x + "px, " + y + "px)";
+            element.style["-moz-transform"]    = "translate(" + x + "px, " + y + "px)";
+            element.style["-ms-transform"]     = "translate(" + x + "px, " + y + "px)";
+            element.style["-o-transform"]      = "translate(" + x + "px, " + y + "px)";
+            element.style["transform"]         = "translate(" + x + "px, " + y + "px)";
+        }
+        
+        function isNumber(obj) {
+            return toString.call(obj) === '[object Number]';
+        };
+
+        // ----
         // Element-related Events, functions & style-switching
         // ----
 
         // bind events, save elements for later use
+        var historyEl = document.querySelector('.history');
+
         document.querySelector('.instructions .forward').addEventListener("click", function(e){
             e.stopPropagation();
 
@@ -28,26 +46,41 @@ document.addEventListener("DOMContentLoaded", function(event) {
             if (e.keyCode == 13) {
                 e.target.value = '';
                 inputWords = inputText.split(' ');
+                console.log('input 1st char : ' + inputText[0]);
 
-                console.log(inputWords);
+                if (parseInt(inputText[0], 10) >= 0) {
+                    var currentOrientation = '';
 
-                if (parseInt(inputText[0], 10)) {
+                    console.log('processing position');
                     // if text starts with a number it will be processed as a position
                     for (var i = 0; i < inputWords.length; i++) {
-                        if (parseInt(inputWords[i], 10)) {
+                        if (i < 2) {
                             var currentNumber = Math.min(parseInt(inputWords[i], 10), 50);
-                            console.log(currentNumber);
-                        } else {
-                            for (var j = 0; j < inputWords[i].length; j++) {
-                                var currentLetter = inputWords[i][j].toUpperCase();
-                                if (currentLetter === 'N') robot.orientation('north');
-                                if (currentLetter === 'E') robot.orientation('east');
-                                if (currentLetter === 'W') robot.orientation('west');
-                                if (currentLetter === 'S') robot.orientation('south');
-                            }
+                            if (i == 0) currentX = currentNumber;
+                            if (i == 1) currentY = currentNumber;
+                        } else if (i == 2) {
+                            var currentLetter = inputWords[i][0].toUpperCase();
+                            if (currentLetter === 'N') currentOrientation = 'north';
+                            if (currentLetter === 'E') currentOrientation = 'east';
+                            if (currentLetter === 'W') currentOrientation = 'west';
+                            if (currentLetter === 'S') currentOrientation = 'south';
                         }
                     }
+
+                    if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
+                    historyEl.appendChild(
+                        document.createTextNode(
+                            currentX + ' ' +
+                            currentY + ' ' +
+                            (currentOrientation[0] ? currentOrientation[0].toUpperCase() : '')
+                        )
+                    );
+                    robot.moveTo(currentX, null);
+                    robot.moveTo(null, currentY);
+
+                    if (currentOrientation) robot.orientation(currentOrientation);
                 } else {
+                    console.log('processing instruction');
                     // otherwise it will pe processed as an instruction
                     console.log(inputText);
                     for (var k = 0; k < inputText.length; k++) {
@@ -189,18 +222,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         // ----
-        // Utility Functions
-        // ----
-
-        function translate(element, x, y) {
-            element.style["-webkit-transform"] = "translate(" + x + "px, " + y + "px)";
-            element.style["-moz-transform"]    = "translate(" + x + "px, " + y + "px)";
-            element.style["-ms-transform"]     = "translate(" + x + "px, " + y + "px)";
-            element.style["-o-transform"]      = "translate(" + x + "px, " + y + "px)";
-            element.style["transform"]         = "translate(" + x + "px, " + y + "px)";
-        }
-
-        // ----
         // Robot Logic
         // ----
 
@@ -269,6 +290,85 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 this._moveTo(this._x + x, this._y + y);
             };
 
+            this._moveTo = function(x, y){
+                var self = this;
+                self._robotElement.classList.add('is-moving');
+                setTimeout(function(){
+                    self._robotElement.classList.remove('is-moving');
+                }, 200);
+
+                if (
+                    ((x > this._worldSize) || (x < 0))
+                    || ((y > this._worldSize) || (y < 0))
+                ){
+                    // robot has moved outside of world-grid
+
+                    // if one of the values isn't a number, x & y are passed individually
+                    // in which case we need to update one of them.
+                    // Because the values are passed in individually, we should also check
+                    // that the orientation of the robot is set correctly
+                    if (!isNumber(x) || !isNumber(y)) {
+                        if (isNumber(x)) {
+                            console.log('x is number : ', x, this._x);
+                            this._checkOrientation(this._x, x, null, null);
+                            this._x = x;
+                        }
+                        if (isNumber(y)) {
+                            console.log('y is number : ', y, this._y);
+                            this._checkOrientation(null, null, this._y, y);
+                            this._y = y;
+                        }
+                    }
+
+                    // let's save the position
+                    var currentPos = {
+                        orientation : this._orientation,
+                        x : Math.min(Math.max(this._x, 0), this._worldSize),
+                        y : Math.min(Math.max(this._y, 0), this._worldSize)
+                    }
+
+                    // create a new scented Cell
+                    var scentedCell = this._isPositionScented(currentPos.orientation, currentPos.x, currentPos.y);
+
+                    // either add the existing scented Cell
+                    if (!scentedCell){
+                        this._addScentedPosition(
+                            currentPos.orientation,
+                            currentPos.x,
+                            currentPos.y
+                        );
+                        // and re-initialize the robot
+                        this._init();
+
+                    } else {
+                        // or show visually that the robot can't move forward
+                        scentedCell.classList.add('is-stepped-on');
+                        self._robotElement.classList.remove('is-moving');
+                        self._robotElement.classList.add('is-not-moving');
+                        setTimeout(function(){
+                            scentedCell.classList.remove('is-stepped-on');
+                            self._robotElement.classList.remove('is-not-moving');
+                        }, 400);
+                    }
+                } else {
+                    if (isNumber(x)) this._x = x;
+                    if (isNumber(y)) this._y = y;
+
+                    // move the robot to its position
+                    translate(this._robotElement, (this._x * this._gridSize), (-this._y * this._gridSize));
+                }
+            };
+
+            this._checkOrientation = function(previousX, currentX, previousY, currentY){
+                console.log('previous orientation ' + this._orientation);
+                console.log('numbers : ', previousX, currentX, previousY, currentY);
+
+                if ((previousX && currentX) && (currentX > previousX)) this._turn('east'); else this._turn('west');
+                if ((previousY && currentY) && (currentY > previousY)) this._turn('south'); else this._turn('north');
+
+                console.log('orientation ' + this._orientation + ' : ', previousX, currentX, previousY, currentY);
+            };
+
             this._isPositionScented = function(orientation, x, y){
                 var positionSteppedOn = false;
                 this._scentedPositions.forEach(function(position) {
@@ -284,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             };
 
             this._addScentedPosition = function(orientation, x, y){
-                console.log('stepped outside', x, y);
+                console.log('scented position', x, y);
 
                 // create active grid-cell at correct position
                 var scentedCell = this._gridElement.cloneNode(true);
@@ -301,46 +401,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     cell : scentedCell
                 });
                 this._gridCells.appendChild(scentedCell);
-            };
-
-            this._moveTo = function(x, y){
-                var self = this;
-                self._robotElement.classList.add('is-moving');
-                setTimeout(function(){
-                    self._robotElement.classList.remove('is-moving');
-                }, 200);
-
-                if ((x > this._worldSize) || (x < 0) || (y > this._worldSize) || (y < 0)) {
-                    var currentPos = {
-                        orientation : this._orientation,
-                        x : Math.min(Math.max(this._x, 0), this._worldSize),
-                        y : Math.min(Math.max(this._y, 0), this._worldSize)
-                    }
-
-                    var scentedCell = this._isPositionScented(currentPos.orientation, currentPos.x, currentPos.y);
-
-                    if (!scentedCell){
-                        this._addScentedPosition(
-                            currentPos.orientation,
-                            currentPos.x,
-                            currentPos.y
-                        );
-                        this._init();
-
-                    } else {
-                        scentedCell.classList.add('is-stepped-on');
-                        self._robotElement.classList.remove('is-moving');
-                        self._robotElement.classList.add('is-not-moving');
-                        setTimeout(function(){
-                            scentedCell.classList.remove('is-stepped-on');
-                            self._robotElement.classList.remove('is-not-moving');
-                        }, 400);
-                    }
-                } else {
-                    this._x = x;
-                    this._y = y;                
-                    translate(this._robotElement, (this._x * this._gridSize), (-this._y * this._gridSize));
-                }
             };
 
             /**
@@ -361,6 +421,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
             this.orientation = function(toOrientation){
                 this._turn(toOrientation);
+            }
+
+            this.moveTo = function(x, y){
+                this._moveTo(x, y);
             }
 
             return this._init();
