@@ -118,12 +118,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     // that the orientation of the robot is set correctly
                     if (!isNumber(x) || !isNumber(y)) {
                         if (isNumber(x)) {
-                            console.log('x is number : ', x, this._x);
                             this._checkOrientation(this._x, x, null, null);
                             this._x = x;
                         }
                         if (isNumber(y)) {
-                            console.log('y is number : ', y, this._y);
                             this._checkOrientation(null, null, this._y, y);
                             this._y = y;
                         }
@@ -169,15 +167,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
             };
 
             this._checkOrientation = function(previousX, currentX, previousY, currentY){
-                console.log('previous orientation ' + this._orientation);
-                console.log('numbers : ', previousX, currentX, previousY, currentY);
-
                 if ((previousX && currentX) && (currentX > previousX)) this._turn('east');
                 else this._turn('west');
                 if ((previousY && currentY) && (currentY > previousY)) this._turn('south');
                 else this._turn('north');
-
-                console.log('orientation ' + this._orientation + ' : ', previousX, currentX, previousY, currentY);
             };
 
             this._isPositionScented = function(orientation, x, y){
@@ -195,8 +188,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
             };
 
             this._addScentedPosition = function(orientation, x, y){
-                console.log('scented position', x, y);
-
                 // create active grid-cell at correct position
                 var scentedCell = this._gridElement.cloneNode(true);
                 translate(scentedCell, (x * this._gridSize), (-y * this._gridSize));
@@ -271,16 +262,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
             e.stopPropagation();
             var inputText = e.target.value;
 
+            // When Enter key is pressed, the input is separated
+            // and processed into position- and instruction-commands
             if (e.keyCode == 13) {
                 e.target.value = '';
                 inputWords = inputText.split(' ');
-                console.log('input 1st char : ' + inputText[0]);
 
+                // process input as position
                 if (parseInt(inputText[0], 10) >= 0) {
                     var currentOrientation = '';
-
-                    console.log('processing position');
-                    // if text starts with a number it will be processed as a position
                     for (var i = 0; i < inputWords.length; i++) {
                         if (i < 2) {
                             var currentNumber = Math.min(parseInt(inputWords[i], 10), 50);
@@ -295,6 +285,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         }
                     }
 
+                    // write command to the history-log
                     if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
                     historyEl.appendChild(
                         document.createTextNode(
@@ -303,20 +294,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
                             (currentOrientation[0] ? currentOrientation[0].toUpperCase() : '')
                         )
                     );
+
+                    // process final position-command
                     robot.moveTo(currentX, null);
                     robot.moveTo(null, currentY);
-
                     if (currentOrientation) robot.orientation(currentOrientation);
+
+                // process input as instruction
                 } else {
-                    console.log('processing instruction');
-                    // otherwise it will pe processed as an instruction
-                    console.log(inputText);
                     for (var k = 0; k < inputText.length; k++) {
                         var currentLetter = inputText[k].toUpperCase();
                         if (currentLetter === 'F') robot.moveForward();
                         if (currentLetter === 'L') robot.turnLeft();
                         if (currentLetter === 'R') robot.turnRight();
-                        console.log(currentLetter);
                     }
                 }
             }
@@ -326,6 +316,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // ----
         // Numpad Logic
         // ----
+
+        // this code can be a bit cleaner, similar to the robot logic
 
         var numpadButton = {};
         numpadButton.x = numpadEl.querySelector('.position .x');
