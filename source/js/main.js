@@ -45,17 +45,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
             this._orientation = null;
             this._x = null;
             this._y = null;
+            this._initialized = false;
             this._scentedPositions = [];
 
             this._init = function(){
                 var self = this;
                 self._robotElement.classList.add('is-dead');
+                self._initialized = true;
 
                 setTimeout(function(){
                     self._moveTo(0, 0);
                     self._turn('north');
                     setTimeout(function(){
                         self._robotElement.classList.remove('is-dead');
+                        self._initialized = false;
                     }, 200);
                 }, 200);
             };
@@ -144,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                             currentPos.x,
                             currentPos.y
                         );
+
                         // and re-initialize the robot
                         this._init();
                     } else {
@@ -151,6 +155,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         scentedCell.classList.add('is-stepped-on');
                         self._robotElement.classList.remove('is-moving');
                         self._robotElement.classList.add('is-not-moving');
+
                         setTimeout(function(){
                             scentedCell.classList.remove('is-stepped-on');
                             self._robotElement.classList.remove('is-not-moving');
@@ -225,11 +230,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
 
             this.moveTo = function(treatSeparately, x, y){
-                this._moveTo(x, y);
-
                 if (treatSeparately) {
                     this._moveTo(x, null);
-                    this._moveTo(null, y);
+                    if (!this._initialized) this._moveTo(null, y);
+                } else {
+                    this._moveTo(x, y);
                 }
             }
 
