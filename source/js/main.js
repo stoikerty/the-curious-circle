@@ -17,211 +17,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         };
 
         // ----
-        // Element-related Events, functions & style-switching
-        // ----
-
-        // bind events, save elements for later use
-        var historyEl = document.querySelector('.history');
-
-        document.querySelector('.instructions .forward').addEventListener("click", function(e){
-            e.stopPropagation();
-
-            instructions.forward();
-        });
-        document.querySelector('.instructions .left').addEventListener("click", function(e){
-            e.stopPropagation();
-
-            instructions.left();
-        });
-        document.querySelector('.instructions .right').addEventListener("click", function(e){
-            e.stopPropagation();
-
-            instructions.right();
-        });
-
-        document.querySelector('.current-input').addEventListener("keydown", function(e){
-            e.stopPropagation();
-            var inputText = e.target.value;
-
-            if (e.keyCode == 13) {
-                e.target.value = '';
-                inputWords = inputText.split(' ');
-                console.log('input 1st char : ' + inputText[0]);
-
-                if (parseInt(inputText[0], 10) >= 0) {
-                    var currentOrientation = '';
-
-                    console.log('processing position');
-                    // if text starts with a number it will be processed as a position
-                    for (var i = 0; i < inputWords.length; i++) {
-                        if (i < 2) {
-                            var currentNumber = Math.min(parseInt(inputWords[i], 10), 50);
-                            if (i == 0) currentX = currentNumber;
-                            if (i == 1) currentY = currentNumber;
-                        } else if (i == 2) {
-                            var currentLetter = inputWords[i][0].toUpperCase();
-                            if (currentLetter === 'N') currentOrientation = 'north';
-                            if (currentLetter === 'E') currentOrientation = 'east';
-                            if (currentLetter === 'W') currentOrientation = 'west';
-                            if (currentLetter === 'S') currentOrientation = 'south';
-                        }
-                    }
-
-                    if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
-                    historyEl.appendChild(
-                        document.createTextNode(
-                            currentX + ' ' +
-                            currentY + ' ' +
-                            (currentOrientation[0] ? currentOrientation[0].toUpperCase() : '')
-                        )
-                    );
-                    robot.moveTo(currentX, null);
-                    robot.moveTo(null, currentY);
-
-                    if (currentOrientation) robot.orientation(currentOrientation);
-                } else {
-                    console.log('processing instruction');
-                    // otherwise it will pe processed as an instruction
-                    console.log(inputText);
-                    for (var k = 0; k < inputText.length; k++) {
-                        var currentLetter = inputText[k].toUpperCase();
-                        if (currentLetter === 'F') instructions.forward();
-                        if (currentLetter === 'L') instructions.left();
-                        if (currentLetter === 'R') instructions.right();
-                        console.log(currentLetter);
-                    }
-                }
-            }
-        });
-
-        var numpadEl = document.querySelector('.numpad');
-
-        var numpadButton = {};
-        numpadButton.x = numpadEl.querySelector('.position .x');
-        numpadButton.y = numpadEl.querySelector('.position .y');
-        numpadButton.orientation = numpadEl.querySelector('.position .orientation');
-        numpadButton.x.addEventListener("click", function(e){
-            e.stopPropagation();
-
-            position.toggleX();
-        });
-        numpadButton.y.addEventListener("click", function(e){
-            e.stopPropagation();
-
-            position.toggleY();
-        });
-        numpadButton.orientation.addEventListener("click", function(e){
-            e.stopPropagation();
-
-            position.toggleOrientation();
-        });
-
-        var numpadButtons = document.querySelectorAll('.numpad .numbers .button');
-        for (var i=0; i<numpadButtons.length; i++){
-            numpadButtons[i].addEventListener("click", function(e){
-                e.stopPropagation();
-                var confirm = e.target.classList.contains('confirm');
-
-                numpadInput.enterValue(
-                    e.target.getAttribute('data-number'),
-                    e.target.getAttribute('data-orientation'),
-                    confirm
-                );
-            });
-        }
-
-        // retrieve size of one grid-cell & the entire world-grid
-        var gridSize = document.querySelector('.robot').offsetWidth;
-        var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize) - 1;
-
-        // handle robot instructions
-        var instructions = {};
-        instructions.forward = function(){
-            robot.moveForward();
-        }
-        instructions.left = function(){
-            robot.turnLeft();
-        }
-        instructions.right = function(){
-            robot.turnRight();
-        }
-
-        // handle positioning for X, Y and orientation
-        var position = {};
-        position.x = false;
-        position.y = false;
-        position.orientation = false;
-        position.toggleX = function(){
-            position.x = !position.x;
-            position.y = false;
-            position.orientation = false;
-            numpad.showType();
-        }
-        position.toggleY = function(){
-            position.x = false;
-            position.y = !position.y;
-            position.orientation = false;
-            numpad.showType();
-        }
-        position.toggleOrientation = function(){
-            position.x = false;
-            position.y = false;
-            position.orientation = !position.orientation;
-            numpad.showType();
-        }
-
-        // switch classes for using the appropriate version of the numpad
-        var numpad = {};
-        numpad.showType = function(){
-            if (position.x) {
-                numpadButton.x.classList.add('is-active');
-                numpadEl.classList.add('number-mode');
-            }
-            else {
-                numpadButton.x.classList.remove('is-active');
-                if (numpadEl.classList.contains('number-mode')) numpadEl.classList.remove('number-mode');
-            }
-
-            if (position.y) {
-                numpadButton.y.classList.add('is-active');
-                numpadEl.classList.add('number-mode');
-            }
-            else {
-                numpadButton.y.classList.remove('is-active');
-                if ((!position.x) && (numpadEl.classList.contains('number-mode'))) numpadEl.classList.remove('number-mode');
-            }
-
-            if (position.orientation){
-                numpadButton.orientation.classList.add('is-active');
-                numpadEl.classList.add('orientation-mode');
-            }
-            else {
-                numpadButton.orientation.classList.remove('is-active');
-                if (numpadEl.classList.contains('orientation-mode')) numpadEl.classList.remove('orientation-mode');
-            }
-
-            if (!numpadEl.classList.contains('number-mode') && !numpadEl.classList.contains('orientation-mode')){
-                numpadEl.classList.add('disabled-mode');
-            } else if (numpadEl.classList.contains('disabled-mode')) {
-                numpadEl.classList.remove('disabled-mode');
-            }
-        }
-
-        // handle number & orientation input
-        var numpadInput = {};
-        numpadInput.enterValue = function(numberValue, orientationValue, confirm){
-            if (!numpadEl.classList.contains('disabled-mode')){
-                if (!confirm && !position.orientation){
-                    console.log('Number Value : ' + numberValue);
-                } else if (!confirm && position.orientation && (orientationValue.length > 3)){
-                    robot.orientation(orientationValue);
-                } else if (confirm && !position.orientation){
-                    console.log('confirm : ' + confirm);
-                }
-            }
-        }
-
-        // ----
         // Robot Logic
         // ----
 
@@ -431,5 +226,272 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         var robot = new Robot(gridSize, worldSize, document.querySelector('.world-grid'));
+        
+        // ----
+        // Element-related Events, functions & style-switching
+        // ----
+
+        // retrieve size of one grid-cell & the entire world-grid
+        var gridSize = document.querySelector('.robot').offsetWidth;
+        var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize) - 1;
+
+        // handle robot instructions
+        var instructions = {};
+        instructions.forward = function(){
+            robot.moveForward();
+        }
+        instructions.left = function(){
+            robot.turnLeft();
+        }
+        instructions.right = function(){
+            robot.turnRight();
+        }
+
+        // bind events, save elements for later use
+        var historyEl = document.querySelector('.history');
+
+        document.querySelector('.instructions .forward').addEventListener("click", function(e){
+            e.stopPropagation();
+
+            instructions.forward();
+        });
+        document.querySelector('.instructions .left').addEventListener("click", function(e){
+            e.stopPropagation();
+
+            instructions.left();
+        });
+        document.querySelector('.instructions .right').addEventListener("click", function(e){
+            e.stopPropagation();
+
+            instructions.right();
+        });
+
+        document.querySelector('.current-input').addEventListener("keydown", function(e){
+            e.stopPropagation();
+            var inputText = e.target.value;
+
+            if (e.keyCode == 13) {
+                e.target.value = '';
+                inputWords = inputText.split(' ');
+                console.log('input 1st char : ' + inputText[0]);
+
+                if (parseInt(inputText[0], 10) >= 0) {
+                    var currentOrientation = '';
+
+                    console.log('processing position');
+                    // if text starts with a number it will be processed as a position
+                    for (var i = 0; i < inputWords.length; i++) {
+                        if (i < 2) {
+                            var currentNumber = Math.min(parseInt(inputWords[i], 10), 50);
+                            if (i == 0) currentX = currentNumber;
+                            if (i == 1) currentY = currentNumber;
+                        } else if (i == 2) {
+                            var currentLetter = inputWords[i][0].toUpperCase();
+                            if (currentLetter === 'N') currentOrientation = 'north';
+                            if (currentLetter === 'E') currentOrientation = 'east';
+                            if (currentLetter === 'W') currentOrientation = 'west';
+                            if (currentLetter === 'S') currentOrientation = 'south';
+                        }
+                    }
+
+                    if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
+                    historyEl.appendChild(
+                        document.createTextNode(
+                            currentX + ' ' +
+                            currentY + ' ' +
+                            (currentOrientation[0] ? currentOrientation[0].toUpperCase() : '')
+                        )
+                    );
+                    robot.moveTo(currentX, null);
+                    robot.moveTo(null, currentY);
+
+                    if (currentOrientation) robot.orientation(currentOrientation);
+                } else {
+                    console.log('processing instruction');
+                    // otherwise it will pe processed as an instruction
+                    console.log(inputText);
+                    for (var k = 0; k < inputText.length; k++) {
+                        var currentLetter = inputText[k].toUpperCase();
+                        if (currentLetter === 'F') instructions.forward();
+                        if (currentLetter === 'L') instructions.left();
+                        if (currentLetter === 'R') instructions.right();
+                        console.log(currentLetter);
+                    }
+                }
+            }
+        });
+
+        
+        // ----
+        // Numpad Logic
+        // ----
+
+        var numpadEl = document.querySelector('.numpad');
+
+        var numpadButton = {};
+        numpadButton.x = numpadEl.querySelector('.position .x');
+        numpadButton.y = numpadEl.querySelector('.position .y');
+        numpadButton.orientation = numpadEl.querySelector('.position .orientation');
+
+        numpadButton.x.addEventListener("click", function(e){
+            e.stopPropagation();
+
+            numpad.toggleX();
+        });
+        numpadButton.y.addEventListener("click", function(e){
+            e.stopPropagation();
+
+            numpad.toggleY();
+        });
+        numpadButton.orientation.addEventListener("click", function(e){
+            e.stopPropagation();
+
+            numpad.toggleOrientation();
+        });
+
+        var numpadButtons = document.querySelectorAll('.numpad .numbers button');
+        for (var i=0; i<numpadButtons.length; i++){
+            numpadButtons[i].addEventListener("click", function(e){
+                e.stopPropagation();
+                var confirm = e.target.classList.contains('confirm');
+
+                numpad.enterValue(
+                    e.target.getAttribute('data-number'),
+                    e.target.getAttribute('data-orientation'),
+                    confirm
+                );
+            });
+        }
+
+        function Numpad(){
+            // handle positioning for X, Y and orientation
+            this.position = {
+                x : false,
+                y : false,
+                orientation : false
+            };
+
+            this.toggleX = function(){
+                this.position.x = !this.position.x;
+                this.position.y = false;
+                this.position.orientation = false;
+                this.showType();
+            };
+            this.toggleY = function(){
+                this.position.x = false;
+                this.position.y = !this.position.y;
+                this.position.orientation = false;
+                this.showType();
+            };
+            this.toggleOrientation = function(){
+                this.position.x = false;
+                this.position.y = false;
+                this.position.orientation = !this.position.orientation;
+                this.showType();
+            };
+
+            // switch classes for using the appropriate version of the numpad
+            this.showType = function(){
+                if (this.position.x) {
+                    numpadButton.x.classList.add('is-active');
+                    numpadEl.classList.add('number-mode');
+                }
+                else {
+                    numpadButton.x.classList.remove('is-active');
+                    if (numpadEl.classList.contains('number-mode')) numpadEl.classList.remove('number-mode');
+                }
+
+                if (this.position.y) {
+                    numpadButton.y.classList.add('is-active');
+                    numpadEl.classList.add('number-mode');
+                }
+                else {
+                    numpadButton.y.classList.remove('is-active');
+                    if ((!this.position.x) && (numpadEl.classList.contains('number-mode'))) numpadEl.classList.remove('number-mode');
+                }
+
+                if (this.position.orientation){
+                    numpadButton.orientation.classList.add('is-active');
+                    numpadEl.classList.add('orientation-mode');
+                }
+                else {
+                    numpadButton.orientation.classList.remove('is-active');
+                    if (numpadEl.classList.contains('orientation-mode')) numpadEl.classList.remove('orientation-mode');
+                }
+
+                if (!numpadEl.classList.contains('number-mode') && !numpadEl.classList.contains('orientation-mode')){
+                    numpadEl.classList.add('disabled-mode');
+                } else if (numpadEl.classList.contains('disabled-mode')) {
+                    numpadEl.classList.remove('disabled-mode');
+                }
+            };
+
+            // handle number & orientation input
+            this.enterValue = function(numberValue, orientationValue, confirm){
+                if (!numpadEl.classList.contains('disabled-mode')){
+                    var activeButton = numpadEl.querySelector('.position .is-active');
+
+                    if (!confirm && !this.position.orientation){
+                        // a number has been entered
+
+                        if (!(parseInt(activeButton.innerHTML, 10) >= 0)) activeButton.innerHTML = '';
+                        activeButton.innerHTML = activeButton.innerHTML + numberValue;
+                        activeButton.classList.add('is-modified');
+                    
+                    } else if (!confirm && this.position.orientation && (orientationValue.length > 2)){
+                        // orientation value has been entered
+
+                        activeButton.innerHTML = orientationValue;
+                        activeButton.classList.add('is-modified');
+                    
+                    } else if (confirm){
+                        // value has been confirmed
+
+                        if (activeButton.classList.contains('is-modified')){
+                            activeButton.disabled = true;
+
+                            if (!this.position.orientation){
+                                activeButton.innerHTML = Math.min(parseInt(activeButton.innerHTML, 10), 50);
+                            }
+
+                            // reset numpad
+                            activeButton.classList.remove('is-active');
+                            this.position = {
+                                x : false,
+                                y : false,
+                                orientation : false
+                            };
+                            this.showType();
+
+                            var disabledButtons = numpadEl.querySelectorAll('.position button:disabled');
+                            if (disabledButtons.length == 3) {
+                                for (var i=0; i<disabledButtons.length; i++){
+                                    disabledButtons[i].disabled = false;
+                                }
+
+                                numpadEl.classList.add('is-resetting');
+                                setTimeout(function(){
+                                    numpadButton.x.innerHTML = 'X';
+                                    numpadButton.y.innerHTML = 'Y';
+                                    numpadButton.orientation.innerHTML = 'orientation';
+                                    numpadEl.classList.remove('is-resetting');
+                                }, 700);
+                            }
+                        } else {
+                            // reset numpad
+                            this.position = {
+                                x : false,
+                                y : false,
+                                orientation : false
+                            };
+
+                            this.showType();
+                        }
+                    }
+                }
+            };
+        }
+
+        var numpad = new Numpad();
     })(document);
 });

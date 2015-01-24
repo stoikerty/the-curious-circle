@@ -261,13 +261,16 @@ $world-size : $grid-size * 14;
 
         $button-height : $grid-size * 2;
 
-        .button{
+        button{
             z-index : 1;
             @include isButton;
             @include transform(scale(1));
             @include transition(transform 0.1s $ease-in-out-quint);
             color : #fff;
+            background-color : transparent;
+            border : none;
             line-height : $button-height;
+            font-size   : 1em;
             text-align  : center;
             font-weight : bold;
 
@@ -323,6 +326,16 @@ $world-size : $grid-size * 14;
             &.is-active{
                 &:after{
                     background-color : $red-dark;
+                    @include opacity(1);
+                }
+            }
+
+            &[disabled]{
+                @include opacity(0.8);
+                @include transform(scale(0.9));
+
+                &:after{
+                    background-color : #555;
                     @include opacity(1);
                 }
             }
@@ -392,6 +405,9 @@ $world-size : $grid-size * 14;
                         @include position(relative, block, 100%);
                         float : left;
                         font-size : 0.7em;
+                        @include transition(
+                            color $ease-in-quint 0.3s
+                        );
                     }
 
                     .x, .y{
@@ -451,10 +467,29 @@ $world-size : $grid-size * 14;
                             font-size : 0.5em;
                         }
 
-                        &.nr1, &.nr3, &.nr5, &.nr7, &.nr9, &.nr0{
+                        &.nr1, &.nr3, &.nr7, &.nr9, &.nr0{
                             @include opacity(0.2);
                             @include transform(scale(0.7));
                             color : rgba(#fff, 0);
+                        }
+
+                        &.nr5{
+                            color : rgba(#fff, 0);
+                            &:after{
+                                background-color : #999;
+                            }
+                        }
+                    }
+                }
+
+                &.is-resetting{
+                    .position{
+                        .x, .y, .orientation{
+                            color : transparent;
+
+                            @include transition(
+                                color $ease-in-quint 0.6s
+                            );
                         }
                     }
                 }
