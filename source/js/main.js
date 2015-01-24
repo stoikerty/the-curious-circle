@@ -45,20 +45,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
             this._orientation = null;
             this._x = null;
             this._y = null;
-            this._initialized = false;
+            this._dead = null;
             this._scentedPositions = [];
 
             this._init = function(){
                 var self = this;
                 self._robotElement.classList.add('is-dead');
-                self._initialized = true;
+                self._dead = true;
 
                 setTimeout(function(){
                     self._moveTo(0, 0);
                     self._turn('north');
                     setTimeout(function(){
                         self._robotElement.classList.remove('is-dead');
-                        self._initialized = false;
+                        self._dead = false;
                     }, 200);
                 }, 200);
             };
@@ -213,6 +213,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
              * Public Methods
              */
 
+            this.isDead = function(){
+                return this._isDead;
+            }
+
             this.moveForward = function(){
                 this._moveForward();
             }
@@ -232,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             this.moveTo = function(treatSeparately, x, y){
                 if (treatSeparately) {
                     this._moveTo(x, null);
-                    if (!this._initialized) this._moveTo(null, y);
+                    if (!this._dead) this._moveTo(null, y);
                 } else {
                     this._moveTo(x, y);
                 }
@@ -298,12 +302,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
                 // process input as instruction
                 } else {
-                    for (var k = 0; k < inputText.length; k++) {
-                        var currentLetter = inputText[k].toUpperCase();
-                        if (currentLetter === 'F') robot.moveForward();
-                        if (currentLetter === 'L') robot.turnLeft();
-                        if (currentLetter === 'R') robot.turnRight();
-                    }
+                    commandInput.processInstructions(inputText);
                 }
             }
         });
@@ -327,8 +326,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 // treat commands separately by passing true
                 robot.moveTo(true, x, y);
                 if (orientation && (orientation !== 'none')) robot.orientation(orientation);
-            }
+            };
+
+            this.processInstructions = function(instructionsString){
+                for (var k = 0; k < instructionsString.length; k++) {
+                    var currentLetter = instructionsString[k].toUpperCase();
+                    if (currentLetter === 'F') robot.moveForward();
+                    if (currentLetter === 'L') robot.turnLeft();
+                    if (currentLetter === 'R') robot.turnRight();
+
+                    // do not continue processing commands if robot has died
+                    if (robot.isDead()) break;
+                }
+
+                if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
+                historyEl.appendChild(
+                    document.createTextNode(instructionsString)
+                );
+            };
         }
+
         var commandInput = new CommandInput();
         
         // ----
