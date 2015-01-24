@@ -367,12 +367,12 @@ $world-size : $grid-size * 14;
             }
 
             .history{
-                @include position(relative, block, 100%);
+                @include position(relative, block, 100%, $grid-size * 6);
                 @include border-box;
                 float : left;
                 padding : 4px 4px;
                 margin-top : 6px;
-                min-height : $grid-size * 6;
+                overflow-y : scroll;
 
                 background-color : #f4f4f4;
 

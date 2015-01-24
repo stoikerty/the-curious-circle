@@ -341,7 +341,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
                 if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
                 historyEl.appendChild(
-                    document.createTextNode(instructionsString)
+                    document.createTextNode(instructionsString.toUpperCase())
                 );
             };
         }
