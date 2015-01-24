@@ -17,6 +17,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
         };
 
         // ----
+        // Important Variables
+        // ----
+
+        // retrieve size of one grid-cell & the entire world-grid
+        var gridSize = document.querySelector('.robot').offsetWidth;
+        var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize) - 1;
+
+        // save elements for later use
+        var instructionsEl = document.querySelector('.instructions');
+        var commandInputEl = document.querySelector('.command-input');
+        var historyEl = document.querySelector('.history');
+        var numpadEl = document.querySelector('.numpad');
+
+        // ----
         // Robot Logic
         // ----
 
@@ -158,8 +172,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 console.log('previous orientation ' + this._orientation);
                 console.log('numbers : ', previousX, currentX, previousY, currentY);
 
-                if ((previousX && currentX) && (currentX > previousX)) this._turn('east'); else this._turn('west');
-                if ((previousY && currentY) && (currentY > previousY)) this._turn('south'); else this._turn('north');
+                if ((previousX && currentX) && (currentX > previousX)) this._turn('east');
+                else this._turn('west');
+                if ((previousY && currentY) && (currentY > previousY)) this._turn('south');
+                else this._turn('north');
 
                 console.log('orientation ' + this._orientation + ' : ', previousX, currentX, previousY, currentY);
             };
@@ -226,47 +242,32 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         var robot = new Robot(gridSize, worldSize, document.querySelector('.world-grid'));
-        
+
         // ----
-        // Element-related Events, functions & style-switching
+        // Instruction Events
         // ----
 
-        // retrieve size of one grid-cell & the entire world-grid
-        var gridSize = document.querySelector('.robot').offsetWidth;
-        var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize) - 1;
+        instructionsEl.querySelector('.forward').addEventListener("click", function(e){
+            e.stopPropagation();
 
-        // handle robot instructions
-        var instructions = {};
-        instructions.forward = function(){
             robot.moveForward();
-        }
-        instructions.left = function(){
+        });
+        instructionsEl.querySelector('.left').addEventListener("click", function(e){
+            e.stopPropagation();
+
             robot.turnLeft();
-        }
-        instructions.right = function(){
+        });
+        instructionsEl.querySelector('.right').addEventListener("click", function(e){
+            e.stopPropagation();
+
             robot.turnRight();
-        }
-
-        // bind events, save elements for later use
-        var historyEl = document.querySelector('.history');
-
-        document.querySelector('.instructions .forward').addEventListener("click", function(e){
-            e.stopPropagation();
-
-            instructions.forward();
-        });
-        document.querySelector('.instructions .left').addEventListener("click", function(e){
-            e.stopPropagation();
-
-            instructions.left();
-        });
-        document.querySelector('.instructions .right').addEventListener("click", function(e){
-            e.stopPropagation();
-
-            instructions.right();
         });
 
-        document.querySelector('.current-input').addEventListener("keydown", function(e){
+        // ----
+        // Input Event & Logic
+        // ----
+
+        commandInputEl.querySelector('.current-input').addEventListener("keydown", function(e){
             e.stopPropagation();
             var inputText = e.target.value;
 
@@ -312,9 +313,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     console.log(inputText);
                     for (var k = 0; k < inputText.length; k++) {
                         var currentLetter = inputText[k].toUpperCase();
-                        if (currentLetter === 'F') instructions.forward();
-                        if (currentLetter === 'L') instructions.left();
-                        if (currentLetter === 'R') instructions.right();
+                        if (currentLetter === 'F') robot.moveForward();
+                        if (currentLetter === 'L') robot.turnLeft();
+                        if (currentLetter === 'R') robot.turnRight();
                         console.log(currentLetter);
                     }
                 }
@@ -325,8 +326,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // ----
         // Numpad Logic
         // ----
-
-        var numpadEl = document.querySelector('.numpad');
 
         var numpadButton = {};
         numpadButton.x = numpadEl.querySelector('.position .x');
@@ -349,7 +348,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             numpad.toggleOrientation();
         });
 
-        var numpadButtons = document.querySelectorAll('.numpad .numbers button');
+        var numpadButtons = numpadEl.querySelectorAll('.numbers button');
         for (var i=0; i<numpadButtons.length; i++){
             numpadButtons[i].addEventListener("click", function(e){
                 e.stopPropagation();
@@ -398,7 +397,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 }
                 else {
                     numpadButton.x.classList.remove('is-active');
-                    if (numpadEl.classList.contains('number-mode')) numpadEl.classList.remove('number-mode');
+                    if (numpadEl.classList.contains('number-mode'))
+                        numpadEl.classList.remove('number-mode');
                 }
 
                 if (this.position.y) {
@@ -407,7 +407,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 }
                 else {
                     numpadButton.y.classList.remove('is-active');
-                    if ((!this.position.x) && (numpadEl.classList.contains('number-mode'))) numpadEl.classList.remove('number-mode');
+                    if ((!this.position.x) && (numpadEl.classList.contains('number-mode')))
+                        numpadEl.classList.remove('number-mode');
                 }
 
                 if (this.position.orientation){
@@ -416,10 +417,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 }
                 else {
                     numpadButton.orientation.classList.remove('is-active');
-                    if (numpadEl.classList.contains('orientation-mode')) numpadEl.classList.remove('orientation-mode');
+                    if (numpadEl.classList.contains('orientation-mode'))
+                        numpadEl.classList.remove('orientation-mode');
                 }
 
-                if (!numpadEl.classList.contains('number-mode') && !numpadEl.classList.contains('orientation-mode')){
+                if (!numpadEl.classList.contains('number-mode')
+                    && !numpadEl.classList.contains('orientation-mode')){
                     numpadEl.classList.add('disabled-mode');
                 } else if (numpadEl.classList.contains('disabled-mode')) {
                     numpadEl.classList.remove('disabled-mode');
@@ -493,5 +496,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
 
         var numpad = new Numpad();
+
     })(document);
 });
