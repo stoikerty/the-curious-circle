@@ -109,10 +109,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     self._robotElement.classList.remove('is-moving');
                 }, 200);
 
-                if (
-                    ((x > this._worldSize) || (x < 0))
-                    || ((y > this._worldSize) || (y < 0))
-                ){
+                if (((x > this._worldSize) || (x < 0))
+                 || ((y > this._worldSize) || (y < 0))){
                     // robot has moved outside of world-grid
 
                     // if one of the values isn't a number, x & y are passed individually
