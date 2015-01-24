@@ -287,7 +287,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 console.log('stepped outside', x, y);
 
                 // create active grid-cell at correct position
-                console.log(this._scentedPositions);
                 var scentedCell = this._gridElement.cloneNode(true);
                 translate(scentedCell, (x * this._gridSize), (-y * this._gridSize));
 
@@ -327,15 +326,17 @@ document.addEventListener("DOMContentLoaded", function(event) {
                             currentPos.y
                         );
                         this._init();
-                        console.log('dead');
+
                     } else {
                         scentedCell.classList.add('is-stepped-on');
+                        self._robotElement.classList.remove('is-moving');
+                        self._robotElement.classList.add('is-not-moving');
                         setTimeout(function(){
                             scentedCell.classList.remove('is-stepped-on');
+                            self._robotElement.classList.remove('is-not-moving');
                         }, 400);
                     }
                 } else {
-                    console.log('moving');
                     this._x = x;
                     this._y = y;                
                     translate(this._robotElement, (this._x * this._gridSize), (-this._y * this._gridSize));
