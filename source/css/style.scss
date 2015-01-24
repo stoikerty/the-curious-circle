@@ -367,12 +367,12 @@ $world-size : $grid-size * 14;
             }
 
             .history{
-                @include position(relative, block, 100%, $grid-size * 6);
+                @include position(relative, block, 100%);
                 @include border-box;
                 float : left;
-                padding : 4px 6px 8px;
+                padding : 4px 4px;
                 margin-top : 6px;
-                overflow-y : scroll;
+                min-height : $grid-size * 6;
 
                 background-color : #f4f4f4;
 
@@ -494,26 +494,6 @@ $world-size : $grid-size * 14;
                     }
                 }
             }
-        }
-    }
-
-    .history{
-        z-index : 1;
-        @include position(relative, block, 100%);
-        float : left;
-
-        .command{
-            @include position(relative, block, 100%, $input-height);
-            float : left;
-            margin-top : 10px;
-
-            background-color : #fff;
-            border : 1px solid #eee;
-            @include border-radius(2px);
-        }
-
-        .command + .command{
-            border : 1px solid #fff;
         }
     }
 }

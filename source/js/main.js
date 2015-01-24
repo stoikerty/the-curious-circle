@@ -146,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         );
                         // and re-initialize the robot
                         this._init();
-
                     } else {
                         // or show visually that the robot can't move forward
                         scentedCell.classList.add('is-stepped-on');
@@ -225,8 +224,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 this._turn(toOrientation);
             }
 
-            this.moveTo = function(x, y){
+            this.moveTo = function(treatSeparately, x, y){
                 this._moveTo(x, y);
+
+                if (treatSeparately) {
+                    this._moveTo(x, null);
+                    this._moveTo(null, y);
+                }
             }
 
             return this._init();
@@ -255,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });
 
         // ----
-        // Input Event & Logic
+        // User Command Input Event & Logic
         // ----
 
         commandInputEl.querySelector('.current-input').addEventListener("keydown", function(e){
@@ -285,20 +289,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         }
                     }
 
-                    // write command to the history-log
-                    if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
-                    historyEl.appendChild(
-                        document.createTextNode(
-                            currentX + ' ' +
-                            currentY + ' ' +
-                            (currentOrientation[0] ? currentOrientation[0].toUpperCase() : '')
-                        )
-                    );
-
-                    // process final position-command
-                    robot.moveTo(currentX, null);
-                    robot.moveTo(null, currentY);
-                    if (currentOrientation) robot.orientation(currentOrientation);
+                    commandInput.processPosition(currentX, currentY, currentOrientation);
 
                 // process input as instruction
                 } else {
@@ -312,6 +303,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
             }
         });
 
+
+        function CommandInput(){
+            this.processPosition = function(x, y, orientation){
+                //
+
+                // write command to the history-log
+                if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
+                historyEl.appendChild(
+                    document.createTextNode(
+                        x + ' ' +
+                        x + ' ' +
+                        (orientation[0] ? orientation[0].toUpperCase() : '')
+                    )
+                );
+
+                // process final position-command,
+                // treat commands separately by passing true
+                robot.moveTo(true, x, y);
+                if (orientation && (orientation !== 'none')) robot.orientation(orientation);
+            }
+        }
+        var commandInput = new CommandInput();
         
         // ----
         // Numpad Logic
@@ -466,6 +479,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
                                 numpadEl.classList.add('is-resetting');
                                 setTimeout(function(){
+                                    commandInput.processPosition(
+                                        parseInt(numpadButton.x.innerHTML, 10),
+                                        parseInt(numpadButton.y.innerHTML, 10),
+                                        numpadButton.orientation.innerHTML
+                                    );
+
                                     numpadButton.x.innerHTML = 'X';
                                     numpadButton.y.innerHTML = 'Y';
                                     numpadButton.orientation.innerHTML = 'orientation';
