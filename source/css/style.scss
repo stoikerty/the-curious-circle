@@ -197,6 +197,18 @@ button{
                 @include border-radius(4px);
                 @include box-shadow(0px 1px 1px rgba(#000, 0.2));
             }
+
+            .link{
+                text-decoration : none;
+
+                &.faded{
+                    @include opacity(0.4);
+                    @include transition(opacity 0.2s ease-in-out);
+                    &:hover{
+                        @include opacity(0.8);
+                    }
+                }
+            }
         }
     }
 }
