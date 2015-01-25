@@ -33,6 +33,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var buttonForward = instructionsEl.querySelector('.forward');
         var buttonLeft = instructionsEl.querySelector('.left');
         var buttonRight = instructionsEl.querySelector('.right');
+        
+        var buttonTestSample = document.querySelector('.test-sample');
+        var buttonTestDance = document.querySelector('.test-dance');
 
         // ----
         // Robot Logic
@@ -276,6 +279,118 @@ document.addEventListener("DOMContentLoaded", function(event) {
             commandInput.processInstructions('R');
         });
 
+        // ----
+        // Test Sample Event & Logic
+        // ----
+
+        buttonTestSample.addEventListener("click", function(e){
+            e.stopPropagation();
+            var testData = [
+                '5 3',
+                '1 1 E',
+                'RFRFRFRF',
+                '-',
+                '3 2 N',
+                'FRRFLLFFRRFLL',
+                '-',
+                '0 3 W',
+                'LLFFFLFLFL',
+                null,
+                'finish'
+            ];
+
+            runTestData(testData, 600);
+        });
+
+        buttonTestDance.addEventListener("click", function(e){
+            e.stopPropagation();
+            var testData = [
+                '0 -1',
+                '1 -1',
+                '2 -1',
+                '3 -1',
+                '4 -1',
+                '5 -1',
+                '6 -1',
+                '7 -1',
+                '8 -1',
+                '9 -1',
+                '10 -1',
+                '11 -1',
+                '12 -1',
+                '13 -1',
+
+                '0 50',
+                '1 50',
+                '2 50',
+                '3 50',
+                '4 50',
+                '5 50',
+                '6 50',
+                '7 50',
+                '8 50',
+                '9 50',
+                '10 50',
+                '11 50',
+                '12 50',
+                '13 50',
+                '-',
+
+                '6 3 E',
+                '6 3 S',
+                '6 3 N',
+                '6 3 W',
+                '6 3 E',
+                '6 3 N',
+                '6 3 N',
+                '5 3 S',
+                'F','F','F','F','L','L','F','F','F',
+                'R','R','R','R','R','R',
+                'L','L','L','L','L','L',
+                '6 12 S',
+                'F','F','F','F','R','F','F','F','F',
+                'L','R','R',
+                '9 5 E',
+                '9 5 S',
+                '9 5 N',
+                '9 5 W',
+                '12 4 E',
+                '12 4 N',
+                '12 4 W',
+                '12 4 N',
+                '12 4 S',
+                null,
+                'finish'
+            ];
+
+            runTestData(testData, 600);
+        });
+
+        function runTestData(testData, waitTime){
+
+            for (var i=0; i < testData.length; i++){
+                if (testData[i]){
+                    var currentInputText = testData[i];
+
+                    // pass current parameter to setTimeout using bind
+                    setTimeout(function(currentInputText) {
+                        if ((currentInputText !== 'finish') && (currentInputText !== '-'))
+                            commandInput.processText(currentInputText);
+                        else if (currentInputText == '-'){
+                            historyEl.innerHTML = historyEl.innerHTML + '<br>';
+                        } else {
+                            historyEl.innerHTML = historyEl.innerHTML + '<br><br> { Test Data completed } <br>';
+                            commandInput.processText('0 0 N');
+                        }
+                    }.bind(this, currentInputText), waitTime * i);
+                }
+            }
+        }
+
+        // ----
+        // Cursor Key Logic
+        // ----
+
         document.onkeydown = checkKey;
         function checkKey(e) {
             e = e || window.event;
@@ -304,11 +419,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     buttonRight.classList.remove('is-clicked');
                 }, 200);
             }
-
         }
 
         // ----
-        // User Command Input Event & Logic
+        // User Command-Input Event & Logic
         // ----
 
         commandInputEl.querySelector('.current-input').addEventListener("keydown", function(e){
@@ -319,11 +433,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
             // and processed into position- and instruction-commands
             if (e.keyCode == 13) {
                 e.target.value = '';
-                inputWords = inputText.split(' ');
+                commandInput.processText(inputText);
+            }
+        });
 
-                // process input as position
+
+        function CommandInput(){
+            this.processText = function(inputText){
+                var inputWords = inputText.split(' ');
+
+                // process input text as position
                 if (parseInt(inputText[0], 10) >= 0) {
+                    var currentX, currentY;
                     var currentOrientation = '';
+
                     for (var i = 0; i < inputWords.length; i++) {
                         if (i < 2) {
                             var currentNumber = Math.min(parseInt(inputWords[i], 10), 50);
@@ -338,17 +461,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         }
                     }
 
-                    commandInput.processPosition(currentX, currentY, currentOrientation);
+                    this.processPosition(currentX, currentY, currentOrientation);
 
-                // process input as instruction
+                // process input text as instruction
                 } else {
-                    commandInput.processInstructions(inputText);
+                    this.processInstructions(inputText);
                 }
             }
-        });
-
-
-        function CommandInput(){
             this.processPosition = function(x, y, orientation){
                 // write position to the history-log
                 if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
@@ -406,7 +525,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var commandInput = new CommandInput();
         
         // ----
-        // Numpad Logic
+        // Numpad (Position) Logic
         // ----
 
         // this code can be a bit cleaner, similar to the robot logic

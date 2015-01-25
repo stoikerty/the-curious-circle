@@ -405,12 +405,25 @@ $world-size : $grid-size * 14;
             }
 
             .test-sample{
-                @include position(absolute, block, 250%, 24px);
+                @include position(absolute, block, 125%, 24px);
                 top   : 100%;
                 left  : 0px;
                 line-height : 22px;
-                font-size : 12px;
+                font-size : 11px;
                 padding : 0px 12px 3px;
+
+                &:after{
+                    background-color : #888;
+                }
+            }
+
+            .test-dance{
+                @include position(absolute, block, 125%, 24px);
+                top   : 100%;
+                left  : 125%;
+                line-height : 22px;
+                font-size : 11px;
+                padding : 0px 2px 3px;
 
                 &:after{
                     background-color : #888;
