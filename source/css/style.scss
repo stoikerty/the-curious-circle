@@ -359,6 +359,7 @@ $world-size : $grid-size * 14;
             padding : 3px;
 
             .instructions{
+                @include isAnimated;
                 @include position(relative, block, 100%);
                 float : left;
 
@@ -405,6 +406,7 @@ $world-size : $grid-size * 14;
             }
 
             .test-sample{
+                @include isAnimated;
                 @include position(absolute, block, 125%, 24px);
                 top   : 100%;
                 left  : 0px;
@@ -418,6 +420,7 @@ $world-size : $grid-size * 14;
             }
 
             .test-dance{
+                @include isAnimated;
                 @include position(absolute, block, 125%, 24px);
                 top   : 100%;
                 left  : 125%;
