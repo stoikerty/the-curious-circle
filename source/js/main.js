@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
              */
 
             this.isDead = function(){
-                return this._isDead;
+                return this._dead;
             }
 
             this.moveForward = function(){
@@ -315,12 +315,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         function CommandInput(){
             this.processPosition = function(x, y, orientation){
-                // write command to the history-log
+                // write position to the history-log
                 if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
                 historyEl.appendChild(
                     document.createTextNode(
                         x + ' ' +
-                        x + ' ' +
+                        y + ' ' +
                         (orientation[0] ? orientation[0].toUpperCase() : '')
                     )
                 );
@@ -328,13 +328,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 // process final position-command,
                 // treat commands separately by passing true
                 robot.moveTo(true, x, y);
+
+                // output LOST message, or orient the robot
                 if (robot.isDead()) {
-                    historyEl.innerHTML += ' LOST';
-                } else if (orientation && (orientation !== 'none')) robot.orientation(orientation);
+                    historyEl.innerHTML = historyEl.innerHTML + ' LOST';
+                } else if (orientation && (orientation !== 'none'))
+                    robot.orientation(orientation);
+
+                // scroll log for last command to be visbile
+                historyEl.scrollTop = historyEl.scrollHeight;
             };
 
             this.processInstructions = function(instructionsString){
                 var processedInstructions = '';
+
                 for (var k = 0; k < instructionsString.length; k++) {
                     var currentLetter = instructionsString[k].toUpperCase();
                     if (currentLetter === 'F') robot.moveForward();
@@ -344,14 +351,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     processedInstructions += currentLetter;
 
                     // do not continue processing commands if robot has died
-                    if (robot.isDead()) processedInstructions += ' LOST';
-                    if (robot.isDead()) break;
+                    if (robot.isDead()) {
+                        processedInstructions += ' LOST';
+                        break;
+                    }
                 }
 
+                // write instructions to the history-log
                 if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
                 historyEl.appendChild(
                     document.createTextNode(processedInstructions.toUpperCase())
                 );
+
+                // scroll log for last command to be visbile
+                historyEl.scrollTop = historyEl.scrollHeight;
             };
         }
 

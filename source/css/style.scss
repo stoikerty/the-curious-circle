@@ -434,10 +434,14 @@ $world-size : $grid-size * 14;
                     @include position(relative, block, 100%);
                     float : left;
                     background-color : #fafafa;
+                    max-width  : 9999px;
+                    max-height : 9999px;
                     @include box-shadow(-1px 4px 5px #fafafa);
 
                     @include transition(
-                        opacity ease-in-out 0.3s
+                        opacity ease-in-out 0.3s,
+                        max-width ease 0s,
+                        max-height ease 0s
                     );
 
                     .number{
@@ -462,6 +466,16 @@ $world-size : $grid-size * 14;
 
                 &.disabled-mode .numbers{
                     @include opacity(0);
+                    max-width  : 10px;
+                    max-height : 10px;
+                    overflow   : hidden;
+                    pointer-events : none;
+
+                    @include transition(
+                        opacity ease-in-out 0.3s,
+                        max-width ease 0s 0.3s,
+                        max-height ease 0s 0.3s
+                    );
                     .number{
                         @include opacity(0.3);
                         @include transform(scale(0.7));
