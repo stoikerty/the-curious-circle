@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             this._isPositionScented = function(orientation, x, y){
                 var allowMultipleScents = false; // Allow 2 scented cells on world-corners
                 var positionSteppedOn = false;
-                
+
                 this._scentedPositions.forEach(function(position) {
                     if ((position.x == x)
                         && (position.y == y)){
@@ -315,8 +315,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         function CommandInput(){
             this.processPosition = function(x, y, orientation){
-                //
-
                 // write command to the history-log
                 if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
                 historyEl.appendChild(
@@ -330,23 +328,29 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 // process final position-command,
                 // treat commands separately by passing true
                 robot.moveTo(true, x, y);
-                if (orientation && (orientation !== 'none')) robot.orientation(orientation);
+                if (robot.isDead()) {
+                    historyEl.innerHTML += ' LOST';
+                } else if (orientation && (orientation !== 'none')) robot.orientation(orientation);
             };
 
             this.processInstructions = function(instructionsString){
+                var processedInstructions = '';
                 for (var k = 0; k < instructionsString.length; k++) {
                     var currentLetter = instructionsString[k].toUpperCase();
                     if (currentLetter === 'F') robot.moveForward();
                     if (currentLetter === 'L') robot.turnLeft();
                     if (currentLetter === 'R') robot.turnRight();
 
+                    processedInstructions += currentLetter;
+
                     // do not continue processing commands if robot has died
+                    if (robot.isDead()) processedInstructions += ' LOST';
                     if (robot.isDead()) break;
                 }
 
                 if (historyEl.innerHTML !== '') historyEl.innerHTML = historyEl.innerHTML + '<br>';
                 historyEl.appendChild(
-                    document.createTextNode(instructionsString.toUpperCase())
+                    document.createTextNode(processedInstructions.toUpperCase())
                 );
             };
         }

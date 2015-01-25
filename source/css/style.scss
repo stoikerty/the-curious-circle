@@ -351,6 +351,7 @@ $world-size : $grid-size * 14;
         }
 
         .left{
+            @include isAnimated;
             @include position(relative, block, 40%);
             float : left;
             @include border-box;
@@ -376,17 +377,18 @@ $world-size : $grid-size * 14;
             }
 
             .history{
-                @include position(relative, block, 100%, $grid-size * 6);
+                @include position(relative, block, 260%, $grid-size * 6.3);
                 @include border-box;
                 float : left;
-                padding : 4px 4px;
+                padding : 6px;
                 margin-top : 6px;
-                //overflow-y : scroll;
+                overflow-y : scroll;
+                overflow-x : hidden;
 
                 background-color : #f4f4f4;
 
                 text-align : left;
-                font-size : 13px;
+                font-size : 12px;
                 color : #888;
 
                 @include border-radius(2px);
@@ -399,6 +401,7 @@ $world-size : $grid-size * 14;
         }
 
         .right{
+            @include isAnimated;
             @include position(relative, block, 60%);
             float : right;
             @include border-box;
@@ -430,14 +433,21 @@ $world-size : $grid-size * 14;
                 .numbers{
                     @include position(relative, block, 100%);
                     float : left;
+                    background-color : #fafafa;
+                    @include box-shadow(-1px 4px 5px #fafafa);
+
+                    @include transition(
+                        opacity ease-in-out 0.3s
+                    );
+
                     .number{
                         @include position(relative, block, 33.333%);
                         float : left;
                         @include border-box;
 
                         @include transition(
-                            opacity ease-in-out 0.18s,
-                            transform ease-in-out 0.14s
+                            opacity ease-in-out 0.16s,
+                            transform ease-in-out 0.18s
                         );
 
                         &:before{
@@ -451,8 +461,9 @@ $world-size : $grid-size * 14;
                 }
 
                 &.disabled-mode .numbers{
+                    @include opacity(0);
                     .number{
-                        @include opacity(0.2);
+                        @include opacity(0.3);
                         @include transform(scale(0.7));
                         color : rgba(#fff, 0);
                     }
