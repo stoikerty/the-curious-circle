@@ -267,7 +267,7 @@ $world-size : $grid-size * 14;
             z-index : 1;
             @include isButton;
             @include transform(scale(1));
-            @include transition(transform 0.1s $ease-in-out-quint);
+            @include transition(transform 0.06s $ease-in-out-quint);
             color : #fff;
             background-color : transparent;
             border : none;
@@ -291,12 +291,12 @@ $world-size : $grid-size * 14;
                 left : 0;
                 content : ' ';
                 background-color : #444;
-                border-left  : 1px solid #ddd;
-                border-right : 1px solid #aaa;
-                border-bottom : 2px solid #999;
+                border-left  : 1px solid rgba(#ddd, 0.6);
+                border-right : 1px solid rgba(#aaa, 0.6);
+                border-bottom : 2px solid rgba(#999, 0.6);
                 @include transform(scale(0.92));
                 @include transition(opacity 0.07s $ease-out-quint);
-                @include border-radius(2px);
+                @include border-radius(0px);
             }
 
             &:hover{
@@ -304,7 +304,7 @@ $world-size : $grid-size * 14;
             }
 
             &:active{
-                @include transform(scaleY(0.93) scaleX(0.96));
+                @include transform(scaleY(0.94) scaleX(0.96));
                 &:after{ @include opacity(1); }
             }
 
@@ -368,7 +368,7 @@ $world-size : $grid-size * 14;
                     @include border-box;
 
                     &.is-clicked{
-                        @include transform(scaleY(0.93) scaleX(0.96));
+                        @include transform(scaleY(0.94) scaleX(0.96));
                     }
                 }
 
@@ -473,7 +473,7 @@ $world-size : $grid-size * 14;
 
                         @include transition(
                             opacity ease-in-out 0.16s,
-                            transform ease-in-out 0.18s
+                            transform ease-in-out 0.06s
                         );
 
                         &:before{
