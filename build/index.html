@@ -3,33 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-  <title>{ Project }</title>
+  <title>{ the curious circle }</title>
 
   <!-- some settings for using mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-  <!-- general styles for the project -->
-  <link href="css/body.css" media="screen" rel="stylesheet" type="text/css" />
-
-  <!-- :::::: ::::::   your css    :::::: :::::: -->
+  <!-- :::::: ::::::   css    :::::: :::::: -->
   <link href="css/style.css" media="screen" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-  <!-- :::::: ::::::   your html   :::::: :::::: -->
-  <style>
-	/*{ transition: all 0.1s cubic-bezier(0.1, 0, 0.000, 1); } /**/
-</style>
-<div class="siteBody">
+  <!-- :::::: ::::::   html   :::::: :::::: -->
   <div class="content"><div class="inner-content"><div class="info-container"><button class="toggle">??</button><div class="explanation"><h1>The curious circle</h1><hr /><p>This is a small exercise I was given.<br>First things first, create a draft on paper.</p><img src="images/01-draft.jpg" /><p>Then I proceeded to create the structure and style, after setting up a simple live-server (I used my <a href="https://github.com/stoikerty/stk-toolbox">stk-toolbox</a> and the included <a href="https://github.com/stoikerty/stk-toolbox-helpers">scss-helpers</a> for that).</p><img src="images/02-structure.jpg" /><img src="images/03-style.jpg" /><p>Finally I added the logic, while testing and re-adjusting the styling.</p><img src="images/04-logic.jpg" /><p>After that, I had some fun adding a little dance logic and this explanation.</p><img src="images/05-demo.jpg" /><p>I hope you liked the demo!<br>It's all written in vanilla javascript, .scss and .slim languages.<br><br>--<br>Jorge Antunes<br><a class="link" href="https://twitter.com/stoikerty">@stoikerty</a><br><a class="link faded" href="https://portfolio.stoikerty.com">http://portfolio.stoikerty.com</a><br></p></div></div><div class="world-grid is-active"><div class="grid-cells"><div class="cell"></div></div><div class="robot is-dead is-breathing"><div class="pointer"></div></div></div><div class="command-input is-active"><input class="current-input" maxlength="100" placeholder="type in your command" /><div class="touch-keyboard"><div class="left"><div class="instructions"><button class="green-dark forward">^</button><button class="green-dark left"><</button><button class="green-dark right">></button></div><div class="history"></div><button class="test-sample">test sample</button><button class="dance">make him dance</button></div><div class="right"><div class="numpad disabled-mode"><div class="position"><button class="blue-dark x">X</button><button class="blue-dark y">Y</button><button class="blue-dark orientation">orientation</button></div><div class="numbers"><button class="blue-light number nr1" data-number="1" data-orientation="."></button><button class="blue-light number nr2" data-number="2" data-orientation="north"></button><button class="blue-light number nr3" data-number="3" data-orientation="."></button><button class="blue-light number nr4" data-number="4" data-orientation="west"></button><button class="blue-light number nr5" data-number="5" data-orientation="none"></button><button class="blue-light number nr6" data-number="6" data-orientation="east"></button><button class="blue-light number nr7" data-number="7" data-orientation="."></button><button class="blue-light number nr8" data-number="8" data-orientation="south"></button><button class="blue-light number nr9" data-number="9" data-orientation="."></button><button class="blue-light number nr0" data-number="0" data-orientation="."></button><button class="orange-dark number confirm" data-number="ok" data-orientation="ok"></button></div></div></div></div></div></div></div>
-</div>
 
   <!-- polyfill for using modern javascript, see _vanillaJS_ftw.md -->
   <script type="text/javascript" src="js/aight.min.js"></script>
 
-  <!-- :::::: ::::::   your js     :::::: :::::: -->
+  <!-- :::::: ::::::   js     :::::: :::::: -->
   <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

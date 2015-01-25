@@ -548,123 +548,139 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // Numpad (Position) Logic
         // ----
 
-        // this code can be a bit cleaner, similar to the robot logic
-
-        var numpadButton = {};
-        numpadButton.x = numpadEl.querySelector('.position .x');
-        numpadButton.y = numpadEl.querySelector('.position .y');
-        numpadButton.orientation = numpadEl.querySelector('.position .orientation');
-
-        numpadButton.x.addEventListener("click", function(e){
-            e.stopPropagation();
-
-            numpad.toggleX();
-        });
-        numpadButton.y.addEventListener("click", function(e){
-            e.stopPropagation();
-
-            numpad.toggleY();
-        });
-        numpadButton.orientation.addEventListener("click", function(e){
-            e.stopPropagation();
-
-            numpad.toggleOrientation();
-        });
-
-        var numpadButtons = numpadEl.querySelectorAll('.numbers button');
-        for (var i=0; i<numpadButtons.length; i++){
-            numpadButtons[i].addEventListener("click", function(e){
-                e.stopPropagation();
-                var confirm = e.target.classList.contains('confirm');
-
-                numpad.enterValue(
-                    e.target.getAttribute('data-number'),
-                    e.target.getAttribute('data-orientation'),
-                    confirm
-                );
-            });
-        }
-
-        function Numpad(){
+        function Numpad(numpadElement){
             // handle positioning for X, Y and orientation
-            this.position = {
+            this._position = {
                 x : false,
                 y : false,
                 orientation : false
             };
 
+            this._numPadEl = numpadElement;
+            this._numpadButton = {};
+
+            /**
+             * Private Methods
+             */
+
+            this._init = function(){
+                this._position = {
+                    x : false,
+                    y : false,
+                    orientation : false
+                };
+
+                this._numpadButton.x = this._numPadEl.querySelector('.position .x');
+                this._numpadButton.y = this._numPadEl.querySelector('.position .y');
+                this._numpadButton.orientation = this._numPadEl.querySelector('.position .orientation');
+
+                this._numpadButton.x.addEventListener("click", function(e){
+                    e.stopPropagation();
+
+                    numpad.toggleX();
+                });
+                this._numpadButton.y.addEventListener("click", function(e){
+                    e.stopPropagation();
+
+                    numpad.toggleY();
+                });
+                this._numpadButton.orientation.addEventListener("click", function(e){
+                    e.stopPropagation();
+
+                    numpad.toggleOrientation();
+                });
+
+                var numpadButtons = this._numPadEl.querySelectorAll('.numbers button');
+                for (var i=0; i<numpadButtons.length; i++){
+                    numpadButtons[i].addEventListener("click", function(e){
+                        e.stopPropagation();
+                        var confirm = e.target.classList.contains('confirm');
+
+                        numpad.enterValue(
+                            e.target.getAttribute('data-number'),
+                            e.target.getAttribute('data-orientation'),
+                            confirm
+                        );
+                    });
+                }
+            }
+
+            /**
+             * Public Methods
+             */
+
             this.toggleX = function(){
-                this.position.x = !this.position.x;
-                this.position.y = false;
-                this.position.orientation = false;
+                this._position.x = !this._position.x;
+                this._position.y = false;
+                this._position.orientation = false;
                 this.showType();
             };
             this.toggleY = function(){
-                this.position.x = false;
-                this.position.y = !this.position.y;
-                this.position.orientation = false;
+                this._position.x = false;
+                this._position.y = !this._position.y;
+                this._position.orientation = false;
                 this.showType();
             };
             this.toggleOrientation = function(){
-                this.position.x = false;
-                this.position.y = false;
-                this.position.orientation = !this.position.orientation;
+                this._position.x = false;
+                this._position.y = false;
+                this._position.orientation = !this._position.orientation;
                 this.showType();
             };
 
             // switch classes for using the appropriate version of the numpad
             this.showType = function(){
-                if (this.position.x) {
-                    numpadButton.x.classList.add('is-active');
-                    numpadEl.classList.add('number-mode');
+                if (this._position.x) {
+                    this._numpadButton.x.classList.add('is-active');
+                    this._numPadEl.classList.add('number-mode');
                 }
                 else {
-                    numpadButton.x.classList.remove('is-active');
-                    if (numpadEl.classList.contains('number-mode'))
-                        numpadEl.classList.remove('number-mode');
+                    this._numpadButton.x.classList.remove('is-active');
+                    if (this._numPadEl.classList.contains('number-mode'))
+                        this._numPadEl.classList.remove('number-mode');
                 }
 
-                if (this.position.y) {
-                    numpadButton.y.classList.add('is-active');
-                    numpadEl.classList.add('number-mode');
+                if (this._position.y) {
+                    this._numpadButton.y.classList.add('is-active');
+                    this._numPadEl.classList.add('number-mode');
                 }
                 else {
-                    numpadButton.y.classList.remove('is-active');
-                    if ((!this.position.x) && (numpadEl.classList.contains('number-mode')))
-                        numpadEl.classList.remove('number-mode');
+                    this._numpadButton.y.classList.remove('is-active');
+                    if ((!this._position.x) && (this._numPadEl.classList.contains('number-mode')))
+                        this._numPadEl.classList.remove('number-mode');
                 }
 
-                if (this.position.orientation){
-                    numpadButton.orientation.classList.add('is-active');
-                    numpadEl.classList.add('orientation-mode');
+                if (this._position.orientation){
+                    this._numpadButton.orientation.classList.add('is-active');
+                    this._numPadEl.classList.add('orientation-mode');
                 }
                 else {
-                    numpadButton.orientation.classList.remove('is-active');
-                    if (numpadEl.classList.contains('orientation-mode'))
-                        numpadEl.classList.remove('orientation-mode');
+                    this._numpadButton.orientation.classList.remove('is-active');
+                    if (this._numPadEl.classList.contains('orientation-mode'))
+                        this._numPadEl.classList.remove('orientation-mode');
                 }
 
-                if (!numpadEl.classList.contains('number-mode')
-                    && !numpadEl.classList.contains('orientation-mode')){
-                    numpadEl.classList.add('disabled-mode');
-                } else if (numpadEl.classList.contains('disabled-mode')) {
-                    numpadEl.classList.remove('disabled-mode');
+                if (!this._numPadEl.classList.contains('number-mode')
+                    && !this._numPadEl.classList.contains('orientation-mode')){
+                    this._numPadEl.classList.add('disabled-mode');
+                } else if (this._numPadEl.classList.contains('disabled-mode')) {
+                    this._numPadEl.classList.remove('disabled-mode');
                 }
             };
 
             // handle number & orientation input
             this.enterValue = function(numberValue, orientationValue, confirm){
-                if (!numpadEl.classList.contains('disabled-mode')){
-                    var activeButton = numpadEl.querySelector('.position .is-active');
+                if (!this._numPadEl.classList.contains('disabled-mode')){
+                    var activeButton = this._numPadEl.querySelector('.position .is-active');
 
-                    if (!confirm && !this.position.orientation){
+                    if (!confirm && !this._position.orientation){
                         // a number has been entered
 
                         if (!(parseInt(activeButton.innerHTML, 10) >= 0)) activeButton.innerHTML = '';
                         activeButton.innerHTML = activeButton.innerHTML + numberValue;
                         activeButton.classList.add('is-modified');
                     
-                    } else if (!confirm && this.position.orientation && (orientationValue.length > 2)){
+                    } else if (!confirm && this._position.orientation && (orientationValue.length > 2)){
                         // orientation value has been entered
 
                         activeButton.innerHTML = orientationValue;
@@ -676,42 +692,44 @@ document.addEventListener("DOMContentLoaded", function(event) {
                         if (activeButton.classList.contains('is-modified')){
                             activeButton.disabled = true;
 
-                            if (!this.position.orientation){
+                            if (!this._position.orientation){
                                 activeButton.innerHTML = Math.min(parseInt(activeButton.innerHTML, 10), 50);
                             }
 
                             // reset numpad
                             activeButton.classList.remove('is-active');
-                            this.position = {
+                            this._position = {
                                 x : false,
                                 y : false,
                                 orientation : false
                             };
                             this.showType();
 
-                            var disabledButtons = numpadEl.querySelectorAll('.position button:disabled');
+                            var disabledButtons = this._numPadEl.querySelectorAll('.position button:disabled');
                             if (disabledButtons.length == 3) {
                                 for (var i=0; i<disabledButtons.length; i++){
                                     disabledButtons[i].disabled = false;
                                 }
 
-                                numpadEl.classList.add('is-resetting');
+                                var self = this;
+
+                                self._numPadEl.classList.add('is-resetting');
                                 setTimeout(function(){
                                     commandInput.processPosition(
-                                        parseInt(numpadButton.x.innerHTML, 10),
-                                        parseInt(numpadButton.y.innerHTML, 10),
-                                        numpadButton.orientation.innerHTML
+                                        parseInt(self._numpadButton.x.innerHTML, 10),
+                                        parseInt(self._numpadButton.y.innerHTML, 10),
+                                        self._numpadButton.orientation.innerHTML
                                     );
 
-                                    numpadButton.x.innerHTML = 'X';
-                                    numpadButton.y.innerHTML = 'Y';
-                                    numpadButton.orientation.innerHTML = 'orientation';
-                                    numpadEl.classList.remove('is-resetting');
+                                    self._numpadButton.x.innerHTML = 'X';
+                                    self._numpadButton.y.innerHTML = 'Y';
+                                    self._numpadButton.orientation.innerHTML = 'orientation';
+                                    self._numPadEl.classList.remove('is-resetting');
                                 }, 700);
                             }
                         } else {
                             // reset numpad
-                            this.position = {
+                            this._position = {
                                 x : false,
                                 y : false,
                                 orientation : false
@@ -722,9 +740,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
                     }
                 }
             };
+
+            this._init();
         }
 
-        var numpad = new Numpad();
+        var numpad = new Numpad(numpadEl);
 
     })(document);
 });
