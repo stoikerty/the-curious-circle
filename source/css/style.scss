@@ -178,7 +178,25 @@ button{
         .explanation{
             display : block;
             font-family : Verdana;
-            font-size : 16px;
+            font-size : 14px;
+            line-height : 1.4em;
+            color : #333;
+
+            h1{
+                font-size  : 22px;
+                text-align : center;
+            }
+            p{
+                margin : 20px 0;
+            }
+
+            img{
+                @include position(relative, block, 100%);
+                float : left;
+                margin-bottom : 16px;
+                @include border-radius(4px);
+                @include box-shadow(0px 1px 1px rgba(#000, 0.2));
+            }
         }
     }
 }
