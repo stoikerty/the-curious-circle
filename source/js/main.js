@@ -20,22 +20,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // Important Variables
         // ----
 
-        // retrieve size of one grid-cell & the entire world-grid
-        var gridSize = document.querySelector('.robot').offsetWidth;
-        var worldSize = Math.floor(document.querySelector('.world-grid').offsetWidth / gridSize) - 1;
-
         // save elements for later use
+        var worldGridEl = document.querySelector('.world-grid');
         var instructionsEl = document.querySelector('.instructions');
         var commandInputEl = document.querySelector('.command-input');
         var historyEl = document.querySelector('.history');
         var numpadEl = document.querySelector('.numpad');
+
+        var infoContainerEl = document.querySelector('.info-container');
+        var buttonExplanation = document.querySelector('.info-container .toggle');
 
         var buttonForward = instructionsEl.querySelector('.forward');
         var buttonLeft = instructionsEl.querySelector('.left');
         var buttonRight = instructionsEl.querySelector('.right');
         
         var buttonTestSample = document.querySelector('.test-sample');
-        var buttonTestDance = document.querySelector('.test-dance');
+        var buttonDance = document.querySelector('.dance');
+
+        // retrieve size of one grid-cell & the entire world-grid
+        var gridSize = document.querySelector('.robot').offsetWidth;
+        var worldSize = Math.floor(worldGridEl.offsetWidth / gridSize) - 1;
 
         // ----
         // Robot Logic
@@ -257,7 +261,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
             return this._init();
         }
 
-        var robot = new Robot(gridSize, worldSize, document.querySelector('.world-grid'));
+        var robot = new Robot(gridSize, worldSize, worldGridEl);
+
+        // ----
+        // Show Explanation
+        // ----
+
+        buttonExplanation.addEventListener("click", function(e){
+            e.stopPropagation();
+
+            infoContainerEl.classList.toggle('is-active');
+            worldGridEl.classList.toggle('is-active');
+            commandInputEl.classList.toggle('is-active');
+        });
 
         // ----
         // Instruction Events
@@ -302,9 +318,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
             runTestData(testData, 600);
         });
 
-        buttonTestDance.addEventListener("click", function(e){
+        buttonDance.addEventListener("click", function(e){
             e.stopPropagation();
             var testData = [
+
+                // fist, set the scene (bottom row)
                 '0 -1',
                 '1 -1',
                 '2 -1',
@@ -320,6 +338,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 '12 -1',
                 '13 -1',
 
+                // set the scene (top row)
                 '0 50',
                 '1 50',
                 '2 50',
@@ -336,6 +355,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 '13 50',
                 '-',
 
+                // now dance!
                 '6 3 E',
                 '6 3 S',
                 '6 3 N',

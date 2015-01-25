@@ -47,12 +47,146 @@ $world-size : $grid-size * 14;
     @include isAnimated;
     @include transform-origin(50%, 50%);
     @include position(relative, inline-block);
-    padding : 0 5px;
+    padding : 0 40px;
+
+    max-width : $world-size * 2;
+}
+
+$button-height : $grid-size * 2;
+
+button{
+    z-index : 1;
+    @include isButton;
+    @include transform(scale(1));
+    @include transition(transform 0.06s $ease-in-out-quint);
+    color : #fff;
+    background-color : transparent;
+    border : none;
+    line-height : $button-height;
+    font-size   : 1em;
+    text-align  : center;
+    font-weight : bold;
+
+    @include appearance(none !important);
+    outline : none !important;
+
+    &::-moz-focus-inner {
+        border: 0 !important;
+    }
+
+    &:after{
+        z-index : -1;
+        @include position(absolute, block, 100%, 100%);
+        @include border-box;
+        top  : 0;
+        left : 0;
+        content : ' ';
+        background-color : #444;
+        border-left  : 1px solid rgba(#ddd, 0.6);
+        border-right : 1px solid rgba(#aaa, 0.6);
+        border-bottom : 2px solid rgba(#999, 0.6);
+        @include transform(scale(0.92));
+        @include transition(opacity 0.07s $ease-out-quint);
+        @include border-radius(0px);
+    }
+
+    &:hover{
+        &:after{ @include opacity(0.86); }
+    }
+
+    &:active{
+        @include transform(scaleY(0.94) scaleX(0.96));
+        &:after{ @include opacity(1); }
+    }
+
+    &.green-dark{
+        &:after{
+            background-color : $green-dark;
+        }
+    }
+
+    &.blue-dark{
+        &:after{
+            background-color : $blue-dark;
+        }
+    }
+
+    &.blue-light{
+        &:after{
+            background-color : $blue-light;
+        }
+    }
+
+    &.orange-dark{
+        &:after{
+            background-color : $orange-dark;
+        }
+    }
+
+    &.is-active{
+        &:after{
+            background-color : $red-dark;
+            @include opacity(1);
+        }
+    }
+
+    &[disabled]{
+        @include opacity(0.8);
+        @include transform(scale(0.9));
+        cursor : default;
+
+        &:after{
+            background-color : #555;
+            @include opacity(1);
+        }
+    }
+}
+
+.info-container{
+    @include isAnimated;
+    @include position(relative, inline-block, 0, 0);
+    text-align : left;
+    margin : ($grid-size / 2) 0 0;
+    vertical-align : top;
+
+    $toggle-size : 28px;
+    .toggle{
+        @include position(absolute, block, $toggle-size, $toggle-size);
+        top  : 0;
+        left : -$toggle-size - 6px;
+        padding   : 0px;
+        font-size : 12px;
+        line-height : $toggle-size;
+
+        &:after{
+            background-color : #ccc;
+            border : 1px solid #aaa;
+            @include border-radius(50px);
+        }
+    }
+
+    .explanation{
+        display : none;
+    }
+
+    &.is-active{
+        width : auto;
+        max-width : $world-size * 2;
+        @include breakpoint(phone smart) {
+            max-width : $world-size;
+        }
+        .explanation{
+            display : block;
+            font-family : Verdana;
+            font-size : 16px;
+        }
+    }
 }
 
 .world-grid{
     z-index : 2;
-    @include position(relative, inline-block, $world-size, $world-size);
+    @include position(relative, none, $world-size, $world-size);
+    @include border-box;
     margin : ($grid-size / 2) 0 0;
     vertical-align : top;
 
@@ -63,6 +197,8 @@ $world-size : $grid-size * 14;
     );
     border : 1px solid #ddd;
     @include border-radius(2px);
+
+    &.is-active { display : inline-block; }
 
     .grid-cells{
         .cell{
@@ -220,11 +356,13 @@ $world-size : $grid-size * 14;
 
 .command-input{
     z-index : 1;
-    @include position(relative, inline-block, $world-size - ($grid-size));
+    @include position(relative, none, $world-size - ($grid-size));
     margin : ($grid-size / 2) ($grid-size / 2) 0;
     vertical-align : top;
 
     $input-height : 26px;
+
+    &.is-active { display : inline-block; }
 
     .current-input{
         z-index : 2;
@@ -260,96 +398,6 @@ $world-size : $grid-size * 14;
         @include position(relative, block, 100%);
         float : left;
         padding : 6px 2px 0px;
-
-        $button-height : $grid-size * 2;
-
-        button{
-            z-index : 1;
-            @include isButton;
-            @include transform(scale(1));
-            @include transition(transform 0.06s $ease-in-out-quint);
-            color : #fff;
-            background-color : transparent;
-            border : none;
-            line-height : $button-height;
-            font-size   : 1em;
-            text-align  : center;
-            font-weight : bold;
-
-            @include appearance(none !important);
-            outline : none !important;
-
-            &::-moz-focus-inner {
-                border: 0 !important;
-            }
-
-            &:after{
-                z-index : -1;
-                @include position(absolute, block, 100%, 100%);
-                @include border-box;
-                top  : 0;
-                left : 0;
-                content : ' ';
-                background-color : #444;
-                border-left  : 1px solid rgba(#ddd, 0.6);
-                border-right : 1px solid rgba(#aaa, 0.6);
-                border-bottom : 2px solid rgba(#999, 0.6);
-                @include transform(scale(0.92));
-                @include transition(opacity 0.07s $ease-out-quint);
-                @include border-radius(0px);
-            }
-
-            &:hover{
-                &:after{ @include opacity(0.86); }
-            }
-
-            &:active{
-                @include transform(scaleY(0.94) scaleX(0.96));
-                &:after{ @include opacity(1); }
-            }
-
-            &.green-dark{
-                &:after{
-                    background-color : $green-dark;
-                }
-            }
-
-            &.blue-dark{
-                &:after{
-                    background-color : $blue-dark;
-                }
-            }
-
-            &.blue-light{
-                &:after{
-                    background-color : $blue-light;
-                }
-            }
-
-            &.orange-dark{
-                &:after{
-                    background-color : $orange-dark;
-                }
-            }
-
-            &.is-active{
-                &:after{
-                    background-color : $red-dark;
-                    @include opacity(1);
-                }
-            }
-
-            &[disabled]{
-                @include opacity(0.8);
-                @include transform(scale(0.9));
-                cursor : default;
-
-                &:after{
-                    background-color : #555;
-                    @include opacity(1);
-                }
-            }
-        }
 
         .left{
             @include isAnimated;
@@ -419,7 +467,7 @@ $world-size : $grid-size * 14;
                 }
             }
 
-            .test-dance{
+            .dance{
                 @include isAnimated;
                 @include position(absolute, block, 125%, 24px);
                 top   : 100%;
