@@ -387,7 +387,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });
 
         function runTestData(testData, waitTime){
-
             for (var i=0; i < testData.length; i++){
                 if (testData[i]){
                     var currentInputText = testData[i];
@@ -459,6 +458,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
         function CommandInput(){
+            /**
+             * Public Methods
+             */
+
             this.processText = function(inputText){
                 var inputWords = inputText.split(' ');
 
