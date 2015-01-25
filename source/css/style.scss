@@ -377,7 +377,7 @@ $world-size : $grid-size * 14;
             }
 
             .history{
-                @include position(relative, block, 260%, $grid-size * 6.3);
+                @include position(relative, block, 260%, $grid-size * 4.5);
                 @include border-box;
                 float : left;
                 padding : 6px;
@@ -398,6 +398,19 @@ $world-size : $grid-size * 14;
                     inset 0px 0px 4px rgba(#000, 0.1)
                 );
             }
+
+            .test-sample{
+                @include position(absolute, block, 250%, 24px);
+                top   : 100%;
+                left  : 0px;
+                line-height : 22px;
+                font-size : 12px;
+                padding : 0px 12px 3px;
+
+                &:after{
+                    background-color : #999;
+                }
+            }
         }
 
         .right{
@@ -408,6 +421,7 @@ $world-size : $grid-size * 14;
             padding : 3px;
 
             .numpad{
+                padding-bottom : 10px;
                 .position{
                     @include position(relative, block, 100%);
                     float : left;
@@ -436,7 +450,10 @@ $world-size : $grid-size * 14;
                     background-color : #fafafa;
                     max-width  : 9999px;
                     max-height : 9999px;
-                    @include box-shadow(-1px 4px 5px #fafafa);
+                    @include box-shadow(
+                        0px 4px 3px 3px #fafafa,
+                        0px 4px 3px 3px #fafafa
+                    );
 
                     @include transition(
                         opacity ease-in-out 0.3s,
