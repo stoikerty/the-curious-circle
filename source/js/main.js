@@ -178,13 +178,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
             };
 
             this._isPositionScented = function(orientation, x, y){
+                var allowMultipleScents = false; // Allow 2 scented cells on world-corners
                 var positionSteppedOn = false;
+                
                 this._scentedPositions.forEach(function(position) {
-                    if ((position.orientation == orientation)
-                        && (position.x == x)
+                    if ((position.x == x)
                         && (position.y == y)){
 
-                        positionSteppedOn = position.cell;
+                        if (allowMultipleScents && (position.orientation == orientation)) {
+                            positionSteppedOn = position.cell;
+                        } else if (!allowMultipleScents) {
+                            positionSteppedOn = position.cell;
+                        }
                     }
                 });
 
