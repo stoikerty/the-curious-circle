@@ -30,6 +30,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var historyEl = document.querySelector('.history');
         var numpadEl = document.querySelector('.numpad');
 
+        var buttonForward = instructionsEl.querySelector('.forward');
+        var buttonLeft = instructionsEl.querySelector('.left');
+        var buttonRight = instructionsEl.querySelector('.right');
+
         // ----
         // Robot Logic
         // ----
@@ -256,21 +260,52 @@ document.addEventListener("DOMContentLoaded", function(event) {
         // Instruction Events
         // ----
 
-        instructionsEl.querySelector('.forward').addEventListener("click", function(e){
+        buttonForward.addEventListener("click", function(e){
             e.stopPropagation();
 
-            robot.moveForward();
+            commandInput.processInstructions('F');
         });
-        instructionsEl.querySelector('.left').addEventListener("click", function(e){
+        buttonLeft.addEventListener("click", function(e){
             e.stopPropagation();
 
-            robot.turnLeft();
+            commandInput.processInstructions('L');
         });
-        instructionsEl.querySelector('.right').addEventListener("click", function(e){
+        buttonRight.addEventListener("click", function(e){
             e.stopPropagation();
 
-            robot.turnRight();
+            commandInput.processInstructions('R');
         });
+
+        document.onkeydown = checkKey;
+        function checkKey(e) {
+            e = e || window.event;
+
+            if (e.keyCode == '38') {
+                buttonForward.click();
+                buttonForward.classList.add('is-clicked');
+
+                setTimeout(function(){
+                    buttonForward.classList.remove('is-clicked');
+                }, 200);
+            }
+            else if (e.keyCode == '37') {
+                buttonLeft.click();
+                buttonLeft.classList.add('is-clicked');
+
+                setTimeout(function(){
+                    buttonLeft.classList.remove('is-clicked');
+                }, 200);
+            }
+            else if (e.keyCode == '39') {
+                buttonRight.click();
+                buttonRight.classList.add('is-clicked');
+
+                setTimeout(function(){
+                    buttonRight.classList.remove('is-clicked');
+                }, 200);
+            }
+
+        }
 
         // ----
         // User Command Input Event & Logic

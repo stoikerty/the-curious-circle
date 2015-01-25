@@ -342,6 +342,7 @@ $world-size : $grid-size * 14;
             &[disabled]{
                 @include opacity(0.8);
                 @include transform(scale(0.9));
+                cursor : default;
 
                 &:after{
                     background-color : #555;
@@ -365,6 +366,10 @@ $world-size : $grid-size * 14;
                     @include position(relative, block, 33.333%);
                     float : left;
                     @include border-box;
+
+                    &.is-clicked{
+                        @include transform(scaleY(0.93) scaleX(0.96));
+                    }
                 }
 
                 .forward{
