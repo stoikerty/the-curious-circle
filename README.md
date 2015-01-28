@@ -1,16 +1,16 @@
 the curious circle
 ==================
 
-An interface for moving around an entity using different commands, either entered via keyboard-input or via the provided buttons.
+An interface for moving around an entity using different commands, either entered via keyboard-input or using the provided buttons.
 
 Available Commands:
 - Position, separated by a space:
-    - XX [Number smaller than 50]
-    - X [Direction, optional: N (North), E (East), W (West), S (South)]
+    - XX **[Number smaller than 50]**
+    - X **[Direction, optional: N (North), E (East), W (West), S (South)]**
 - Instruction(s), entered one after another:
-    - F [Forward]
-    - L [Left]
-    - R [Right]
+    - F **[Forward]**
+    - L **[Left]**
+    - R **[Right]**
 
 ---------------------
 
