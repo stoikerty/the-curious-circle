@@ -5,9 +5,12 @@ An interface for moving around an entity using different commands, either entere
 
 Available Commands:
 - Position, separated by a space:
-XX [Number smaller than 50], X [Direction, optional, N (North), E (East), W (West), S (South)]
-- Instruction, entered one after another:
-F [Forward], L [Left], R [Right]
+    - XX [Number smaller than 50]
+    - X [Direction, optional: N (North), E (East), W (West), S (South)]
+- Instruction(s), entered one after another:
+    - F [Forward]
+    - L [Left]
+    - R [Right]
 
 ---------------------
 
