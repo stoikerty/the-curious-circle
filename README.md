@@ -12,6 +12,10 @@ Available Commands:
     - L **[Left]**
     - R **[Right]**
 
+![alt tag](https://github.com/stoikerty/the-curious-circle/blob/master/footage/01-draft.jpg)
+
+![alt tag](https://github.com/stoikerty/the-curious-circle/blob/master/footage/05-demo.jpg)
+
 ---------------------
 
 Technical details: How to use this folder
