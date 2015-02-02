@@ -12,7 +12,7 @@ Available Commands:
     - L **[Left]**
     - R **[Right]**
 
-![alt tag](https://github.com/stoikerty/the-curious-circle/blob/master/footage/01-draft.jpg)
+![alt tag](https://github.com/stoikerty/ampersand-touch-charts/blob/master/footage/Slide-01.jpg)
 
 ![alt tag](https://github.com/stoikerty/the-curious-circle/blob/master/footage/05-demo.jpg)
 
